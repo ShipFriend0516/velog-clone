@@ -1,9 +1,12 @@
 import Image from "next/image";
+import { FaUserCircle } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa6";
 type ArticlePreview = {
   title: string;
   content: string;
   uploadTime: number;
   comments: number;
+  userProfile?: string;
   userName: string;
   likes: number;
   thumbnailURL?: string;
@@ -13,6 +16,7 @@ const ArticlePreview = ({
   content,
   uploadTime,
   comments,
+  userProfile,
   userName,
   likes,
   thumbnailURL,
@@ -42,14 +46,16 @@ const ArticlePreview = ({
       </div>
 
       <div className="px-4 py-2 border-t flex justify-between">
-        <span>
-          <span className="rounded-full">프로필</span>
+        <div className="inline-flex items-center gap-1">
+          <span className="rounded-full overflow-hidden">
+            {userProfile ? <Image src={userProfile} alt="author" /> : <FaUserCircle />}
+          </span>
           <span className="font-light">by {userName}</span>
-        </span>
-        <span>
-          <span>heart</span>
+        </div>
+        <div className="inline-flex items-center gap-1">
+          <FaHeart />
           <span>{likes}</span>
-        </span>
+        </div>
       </div>
     </div>
   );
