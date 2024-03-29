@@ -25,6 +25,10 @@ body {
     text-wrap: balance;
   }
 }
+a {
+  display: inline-flex;
+  align-items: center;
+}
 
 li {
   display: inline-flex;

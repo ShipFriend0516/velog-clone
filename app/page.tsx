@@ -13,7 +13,7 @@ export default function Home() {
     // const kind = e.target!.value;
   };
   return (
-    <main className="max-w-7xl mx-auto">
+    <main className="max-w-7xl mx-auto ">
       <div className="p-5">
         <ul className="list-none inline-flex gap-3">
           <li value={"trend"} className={`selected`}>
@@ -30,7 +30,7 @@ export default function Home() {
           </li>
         </ul>
       </div>
-      <div className=" article-grid grid grid-cols-3 gap-5">
+      <div className=" article-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         <ArticlePreview
           title={"글 제목"}
           content={"글의 내용이 이렇게 보입니다."}

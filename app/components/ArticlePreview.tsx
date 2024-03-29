@@ -19,10 +19,10 @@ const ArticlePreview = ({
 }: ArticlePreview) => {
   return (
     <div className="w-full h-80 shadow-xl rounded-sm flex flex-col justify-between">
-      <div className="flex flex-col justify-between flex-grow">
+      <div className="flex flex-col justify-between flex-grow ">
         {thumbnailURL && (
           <div className="relative">
-            <Image className="object-fill" src={thumbnailURL} alt={title} layout="fill" />
+            <Image className="h-full object-cover" src={thumbnailURL} alt={title} layout="fill" />
           </div>
         )}
         <div>
@@ -36,11 +36,15 @@ const ArticlePreview = ({
         </div>
       </div>
 
-      <div className="px-4 py-2 border-t">
-        <span className="rounded-full">프로필</span>
-        <span className="font-light">by {userName}</span>
-        <span>heart</span>
-        <span>{likes}</span>
+      <div className="px-4 py-2 border-t flex justify-between">
+        <span>
+          <span className="rounded-full">프로필</span>
+          <span className="font-light">by {userName}</span>
+        </span>
+        <span>
+          <span>heart</span>
+          <span>{likes}</span>
+        </span>
       </div>
     </div>
   );
