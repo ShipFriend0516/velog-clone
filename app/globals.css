@@ -43,3 +43,25 @@ li.selected {
   text-underline-offset: 10px;
   color: black;
 }
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 1rem;
+}
+
+.dropdown > div {
+  background-color: white;
+  z-index: 10;
+  width: 180px;
+  text-align: left;
+  padding: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.dropdown > div:hover {
+  color: #235347;
+  background-color: rgb(239, 239, 239);
+}
