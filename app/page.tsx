@@ -13,7 +13,7 @@ export default function Home() {
     // const kind = e.target!.value;
   };
   return (
-    <main className="max-w-7xl mx-auto ">
+    <main className="max-w-5xl mx-auto ">
       <div className="p-5">
         <ul className="list-none inline-flex gap-3">
           <li value={"trend"} className={`selected`}>

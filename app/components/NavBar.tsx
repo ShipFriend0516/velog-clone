@@ -1,10 +1,11 @@
 import { IoNotificationsOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import Link from "next/link";
+import Image from "next/image";
 
 const NavBar = () => {
   return (
-    <div className="max-w-7xl mx-auto p-5 flex justify-between">
+    <div className="max-w-5xl mx-auto p-5 flex justify-between">
       <div>
         <Link href="/">
           <svg
@@ -33,7 +34,23 @@ const NavBar = () => {
         <button className="font-bold rounded-3xl px-4 py-1 border hover:bg-black hover:text-white transition-colors">
           새 글 작성
         </button>
-        <button>프로필</button>
+        <button className="inline-flex">
+          <div className="rounded-full w-10 h-10">
+            <Image src={"/public/userProfile.jpg"} alt={"userProfile"} width={50} height={50} />
+          </div>
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path d="M7 10l5 5 5-5z"></path>
+          </svg>
+        </button>
       </div>
     </div>
   );

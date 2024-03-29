@@ -18,19 +18,24 @@ const ArticlePreview = ({
   thumbnailURL,
 }: ArticlePreview) => {
   return (
-    <div className="w-full h-80 shadow-xl rounded-sm flex flex-col justify-between">
-      <div className="flex flex-col justify-between flex-grow ">
+    <div className="w-full h-96 shadow-xl rounded-sm flex flex-col justify-between">
+      <div className="flex flex-col justify-between flex-grow overflow-hidden">
         {thumbnailURL && (
-          <div className="relative">
-            <Image className="h-full object-cover" src={thumbnailURL} alt={title} layout="fill" />
-          </div>
+          <Image
+            className="object-cover"
+            src={thumbnailURL}
+            alt={title}
+            width={600}
+            height={600}
+            style={{ height: "50%" }}
+          />
         )}
-        <div>
+        <div className="h-1/2">
           <div className="p-5">
             <div className="font-bold">{title}</div>
             <p>{content}</p>
           </div>
-          <div className="p-5">
+          <div className="p-5 text-gray-500 font-light text-sm">
             <span>{uploadTime}</span>•<span>{comments}</span>
           </div>
         </div>
