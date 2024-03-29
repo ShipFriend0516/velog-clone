@@ -25,6 +25,23 @@ body {
     text-wrap: balance;
   }
 }
+
+.navbarItem {
+  position: relative;
+}
+
+.navbarItem:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  transform: translate(-15%, 15%);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+}
+
 a {
   display: inline-flex;
   align-items: center;

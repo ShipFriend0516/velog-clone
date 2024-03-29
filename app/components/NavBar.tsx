@@ -31,10 +31,10 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="flex gap-3">
-        <Link href={"/notifications"}>
+        <Link className="navbarItem" href={"/notifications"}>
           <IoNotificationsOutline size={20} />
         </Link>
-        <button>
+        <button className="navbarItem">
           <IoIosSearch size={20} />
         </button>
         <button className="font-bold rounded-3xl px-4 py-1 border hover:bg-black hover:text-white transition-colors">
