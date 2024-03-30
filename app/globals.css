@@ -82,3 +82,36 @@ li.selected {
   color: #235347;
   background-color: rgb(239, 239, 239);
 }
+
+/* 글 작성 페이지 스타일 */
+
+.writeWrapper {
+  height: 100vh;
+}
+
+.mdWriter {
+  width: 50vw;
+  background-color: white;
+}
+
+.mdWriter input {
+  outline: none;
+}
+
+.mdWriter .writeTools button {
+  padding: 5px;
+}
+
+.mdPreview {
+  width: 50vw;
+  /* background-color: white; */
+}
+
+.writeFooter {
+  font-size: 1.1em;
+  box-shadow: 0 -2px 4px #e0e1e2;
+}
+
+.writeFooter button {
+  padding: 10px 20px;
+}
