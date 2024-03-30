@@ -10,3 +10,9 @@ React
 
 Express?
 
+## 배포
+nextjs 사용하는 김에 vercel 사용
+
+[배포페이지](https://velog-clone-kappa.vercel.app/)
+
+

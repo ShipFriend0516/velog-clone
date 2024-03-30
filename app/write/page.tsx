@@ -1,6 +1,9 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 
 const WritePage = () => {
+  const router = useRouter();
   return (
     <section className="writeWrapper flex justify-between ">
       <form className="mdWriter flex flex-col justify-between overflow-hidden">
@@ -25,7 +28,13 @@ const WritePage = () => {
           </div>
         </div>
         <div className="writeFooter h-20 p-4 bg-white inline-flex justify-between items-center">
-          <button className="inline-flex items-center gap-2">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              router.push("/");
+            }}
+            className="inline-flex items-center gap-2"
+          >
             <FaArrowLeft />
             나가기
           </button>
