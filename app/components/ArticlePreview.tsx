@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
+
 type ArticlePreview = {
   title: string;
   content: string;
@@ -21,6 +23,8 @@ const ArticlePreview = ({
   likes,
   thumbnailURL,
 }: ArticlePreview) => {
+  const router = useRouter();
+
   const now = new Date().getTime();
   const ago = Math.abs(uploadTime - now);
   let difference = Math.floor(ago / 1000 / 60);
@@ -43,9 +47,13 @@ const ArticlePreview = ({
   }
   difference = Math.floor(difference);
 
+  const postClick = () => {
+    router.push(`@${userName}/${title}`);
+  };
+
   return (
-    <div className="w-full h-96 shadow-xl rounded-sm flex flex-col justify-between hover:-translate-y-3  hover:shadow-2xl transition">
-      <div className="flex flex-col justify-between flex-grow overflow-hidden">
+    <div className="w-full h-96 shadow-xl rounded-sm flex flex-col justify-between hover:-translate-y-3  hover:shadow-2xl transition cursor-pointer">
+      <div className="flex flex-col justify-between flex-grow overflow-hidden" onClick={postClick}>
         {thumbnailURL && (
           <Image
             className="object-cover"

@@ -6,6 +6,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "velog.velcdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+      },
     ],
   },
 };
