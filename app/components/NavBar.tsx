@@ -76,7 +76,7 @@ const NavBar = () => {
                 <div>내 블로그</div>
                 <div>임시 글</div>
                 <div>읽기 목록</div>
-                <div>설정</div>
+                <Link href={"/setting"}>설정</Link>
                 <div>로그아웃</div>
               </div>
             )}

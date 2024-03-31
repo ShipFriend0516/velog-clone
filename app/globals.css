@@ -62,12 +62,14 @@ li.selected {
 }
 
 .dropdown {
+  z-index: 20;
   position: absolute;
   right: 0;
   top: 100%;
   margin-top: 1rem;
 }
 
+.dropdown > a,
 .dropdown > div {
   background-color: white;
   z-index: 10;
@@ -131,4 +133,45 @@ textarea {
   &:hover {
     background-color: #f8f9fa;
   }
+}
+
+/* 설정 페이지 스타일 */
+
+.settingDetail > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+  border-top: 1px solid #f1f3f5;
+  padding-top: 16px;
+}
+
+.settingDetail > div:first-of-type {
+  border: 0;
+}
+
+.settingDetail > div > div {
+  display: flex;
+}
+
+.settingDetail > div > p {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.settingDetail > div > div > span {
+  width: 9rem;
+  flex-shrink: 0;
+}
+
+.settingDetail > div > div > div {
+  flex-grow: 1;
+}
+
+.settingDetail > div > div > div {
+  display: inline-flex;
+  gap: 20px;
+}
+
+.settingDetail > div > div > div > span {
+  flex-grow: 1;
 }
