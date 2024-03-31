@@ -75,7 +75,7 @@ const ArticlePreview = ({
           <span className="font-light">by {userName}</span>
         </div>
         <div className="inline-flex items-center gap-1">
-          <FaHeart />
+          <FaHeart size={0.75 + "em"} />
           <span>{likes}</span>
         </div>
       </div>
