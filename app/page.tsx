@@ -13,7 +13,7 @@ export default function Home() {
     // const kind = e.target!.value;
   };
   return (
-    <main className="max-w-5xl mx-auto ">
+    <main className="max-w-5xl mx-auto pb-10">
       <div className="p-5">
         <ul className="list-none inline-flex gap-3">
           <li value={"trend"} className={`selected`}>
@@ -30,7 +30,7 @@ export default function Home() {
           </li>
         </ul>
       </div>
-      <div className=" article-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 p-2">
+      <div className=" article-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-2">
         <ArticlePreview
           title={"글 제목"}
           content={"글의 내용이 이렇게 보입니다."}
@@ -49,6 +49,70 @@ export default function Home() {
           thumbnailURL={
             "https://velog.velcdn.com/images/shipfriend/profile/dc545353-6808-4b90-a1f2-dabc58272f49/image.jpg"
           }
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
+        />
+        <ArticlePreview
+          title={"글 제목"}
+          content={"글의 내용이 이렇게 보입니다."}
+          uploadTime={1711694241133}
+          comments={0}
+          userName={"멧도요"}
+          likes={10}
         />
         <ArticlePreview
           title={"글 제목"}

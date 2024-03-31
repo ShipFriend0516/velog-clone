@@ -44,7 +44,7 @@ const ArticlePreview = ({
   difference = Math.floor(difference);
 
   return (
-    <div className="w-full h-96 shadow-xl rounded-sm flex flex-col justify-between">
+    <div className="w-full h-96 shadow-xl rounded-sm flex flex-col justify-between hover:-translate-y-3  hover:shadow-2xl transition">
       <div className="flex flex-col justify-between flex-grow overflow-hidden">
         {thumbnailURL && (
           <Image
