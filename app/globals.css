@@ -90,21 +90,35 @@ li.selected {
 }
 
 .mdWriter {
-  width: 50vw;
+  flex-grow: 1;
   background-color: white;
 }
 
-.mdWriter input {
+.mdWriter input,
+textarea {
   outline: none;
 }
 
 .mdWriter .writeTools button {
   padding: 5px;
+  color: #868e96;
+  width: 2.5em;
+  height: 2.5em;
+  font-size: 1.15rem;
+
+  @media (max-width: 767px) {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.95rem;
+  }
+}
+
+.contentArea {
+  overflow-y: scroll !important;
 }
 
 .mdPreview {
-  width: 50vw;
-  /* background-color: white; */
+  flex-grow: 1;
 }
 
 .writeFooter {
@@ -114,4 +128,7 @@ li.selected {
 
 .writeFooter button {
   padding: 10px 20px;
+  &:hover {
+    background-color: #f8f9fa;
+  }
 }
