@@ -4,7 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import Link from "next/link";
 import Image from "next/image";
 import exUserProfile from "/public/userProfile.jpg";
-import { useState } from "react";
+import { useState, useEffect, useRef, MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 
 const NavBar = () => {
@@ -12,8 +12,25 @@ const NavBar = () => {
   const onClickDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const isWritePage = usePathname() === "/write";
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", () => {
+      handleClickOutside;
+    });
+    return () => {
+      document.removeEventListener("mousedown", () => {
+        handleClickOutside;
+      });
+    };
+  }, []);
 
   return (
     !isWritePage && (
@@ -72,10 +89,10 @@ const NavBar = () => {
               <path d="M7 10l5 5 5-5z"></path>
             </svg>
             {isDropdownOpen && (
-              <div className="dropdown shadow-lg">
-                <div>내 블로그</div>
-                <div>임시 글</div>
-                <div>읽기 목록</div>
+              <div ref={dropdownRef} className="dropdown shadow-lg">
+                <Link href={"/@user/posts"}>내 블로그</Link>
+                <Link href={"/saves"}>임시 글</Link>
+                <Link href={"/lists"}>읽기 목록</Link>
                 <Link href={"/setting"}>설정</Link>
                 <div>로그아웃</div>
               </div>
