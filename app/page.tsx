@@ -30,7 +30,7 @@ export default function Home() {
           </li>
         </ul>
       </div>
-      <div className=" article-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 lg:p-2">
+      <div className=" article-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 p-4 lg:p-2">
         <ArticlePreview
           title={"글 제목"}
           content={"글의 내용이 이렇게 보입니다."}
