@@ -62,7 +62,7 @@ const NavBar = () => {
             <svg
               stroke="black"
               fill="black"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 24 24"
               height="1.2em"
               width="1.2em"

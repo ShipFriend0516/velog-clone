@@ -175,3 +175,14 @@ textarea {
 .settingDetail > div > div > div > span {
   flex-grow: 1;
 }
+
+/* 임시저장 페이지 스타일 */
+.save-article-preview {
+  padding: 10px 0px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.save-article-preview:last-of-type {
+  border: 0;
+}
