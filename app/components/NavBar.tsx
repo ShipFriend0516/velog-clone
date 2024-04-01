@@ -40,9 +40,9 @@ const NavBar = () => {
           <Link className="navbarItem" href={"/notifications"}>
             <IoNotificationsOutline size={20} />
           </Link>
-          <button className="navbarItem">
+          <Link className="navbarItem" href={"/search"}>
             <IoIosSearch size={20} />
-          </button>
+          </Link>
           <Link
             href={"/write"}
             className="font-bold rounded-3xl px-4 py-1 border hover:bg-black hover:text-white transition-colors"
