@@ -9,7 +9,7 @@ const SavePostPage = () => {
           id={5}
           title={"테스트용 임시저장 글"}
           content={"반갑습니다."}
-          saveTime={new Date().getTime()}
+          saveTime={1711979527264}
         />
         <SaveArticlePreview
           id={1}
