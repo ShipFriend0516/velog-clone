@@ -45,6 +45,7 @@ body {
 a {
   display: inline-flex;
   align-items: center;
+  user-select: none;
 }
 
 li {

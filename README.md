@@ -4,7 +4,7 @@ Velog 블로그를 클론코딩으로 클라이언트와 서버를 모두 풀스
 ## 사용한 기술
 > 클라이언트
 
-React
+React, Nextjs, Zustand
 
 > 서버
 

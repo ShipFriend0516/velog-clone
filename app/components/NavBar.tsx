@@ -6,12 +6,15 @@ import Image from "next/image";
 import exUserProfile from "/public/userProfile.jpg";
 import { useState, useEffect, useRef, MouseEvent } from "react";
 import { usePathname } from "next/navigation";
+import useStore from "../store";
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const onClickDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isWritePage = usePathname() === "/write";
 
@@ -31,6 +34,9 @@ const NavBar = () => {
       });
     };
   }, []);
+
+  // Auth
+  const { login, logout, isLoggedIn } = useStore((state) => state);
 
   return (
     !isWritePage && (
@@ -60,44 +66,60 @@ const NavBar = () => {
           <Link className="navbarItem" href={"/search"}>
             <IoIosSearch size={20} />
           </Link>
-          <Link
-            href={"/write"}
-            className="font-bold rounded-3xl px-4 py-1 border hover:bg-black hover:text-white transition-colors"
-          >
-            새 글 작성
-          </Link>
-          <button onClick={onClickDropdown} className="relative inline-flex items-center gap-1.5">
-            <div className="rounded-full w-10 h-10 overflow-hidden">
-              <Image
-                className="object-cover"
-                src={exUserProfile}
-                alt={"userProfile"}
-                width={50}
-                height={50}
-              />
-            </div>
-            <svg
-              stroke="black"
-              fill="black"
-              strokeWidth="0"
-              viewBox="0 0 24 24"
-              height="1.2em"
-              width="1.2em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path fill="none" d="M0 0h24v24H0z"></path>
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-            {isDropdownOpen && (
-              <div ref={dropdownRef} className="dropdown shadow-lg">
-                <Link href={"/@user/posts"}>내 블로그</Link>
-                <Link href={"/saves"}>임시 글</Link>
-                <Link href={"/lists"}>읽기 목록</Link>
-                <Link href={"/setting"}>설정</Link>
-                <div>로그아웃</div>
-              </div>
-            )}
-          </button>
+          {isLoggedIn ? (
+            <>
+              <Link
+                href={"/write"}
+                className="font-bold rounded-3xl px-4 py-1 border hover:bg-black hover:text-white transition-colors"
+              >
+                새 글 작성
+              </Link>
+              <button
+                onClick={onClickDropdown}
+                className="relative inline-flex items-center gap-1.5"
+              >
+                <div className="rounded-full w-10 h-10 overflow-hidden">
+                  <Image
+                    className="object-cover"
+                    src={exUserProfile}
+                    alt={"userProfile"}
+                    width={50}
+                    height={50}
+                  />
+                </div>
+                <svg
+                  stroke="black"
+                  fill="black"
+                  strokeWidth="0"
+                  viewBox="0 0 24 24"
+                  height="1.2em"
+                  width="1.2em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path d="M7 10l5 5 5-5z"></path>
+                </svg>
+                {isDropdownOpen && (
+                  <div ref={dropdownRef} className="dropdown shadow-lg">
+                    <Link href={"/@user/posts"}>내 블로그</Link>
+                    <Link href={"/saves"}>임시 글</Link>
+                    <Link href={"/lists"}>읽기 목록</Link>
+                    <Link href={"/setting"}>설정</Link>
+                    <div onClick={logout}>로그아웃</div>
+                  </div>
+                )}
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={login}
+                className="font-bold rounded-3xl px-4 py-1 border bg-black hover:bg-gray-900 text-white transition-colors"
+              >
+                로그인
+              </button>
+            </>
+          )}
         </div>
       </header>
     )
