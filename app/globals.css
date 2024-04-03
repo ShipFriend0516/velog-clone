@@ -264,18 +264,26 @@ textarea {
 }
 
 .glass {
-  animation: modal 0.6s ease;
+  animation: modal 0.3s ease-out;
+  transform-origin: left bottom;
 }
 
 @keyframes modal {
   0% {
     opacity: 0;
+    transform: scale(0.8) translate(-50%, -50%);
+    top: calc(50% + 50px);
+  }
+
+  80% {
     top: calc(50% - 10px);
+    transform: scale(1) translate(-50%, -50%);
   }
 
   100% {
     opacity: 0.95;
     top: 50%;
+    transform: scale(1) translate(-50%, -50%);
   }
 }
 

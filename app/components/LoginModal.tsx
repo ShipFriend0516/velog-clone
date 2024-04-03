@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import LoginIllust from "./LoginIllust";
 
 interface LoginModalControl {
@@ -5,6 +7,7 @@ interface LoginModalControl {
 }
 
 const LoginModal = ({ setModalOpen }: LoginModalControl) => {
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <>
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 z-50 shadow-2xl opacity-95 glass flex ">
@@ -13,7 +16,7 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
           환영합니다.
         </div>
         <div>
-          <h3 className="text-xl">로그인</h3>
+          <h3 className="text-xl">{isLogin ? "로그인" : "회원가입"}</h3>
           <div>
             <p>이메일로 로그인</p>
             <div className="inline-flex w-full mt-3">
@@ -22,11 +25,13 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
                 type="email"
                 placeholder={"이메일을 입력하세요."}
               />
-              <button className="py-3 px-5 bg-emerald-500">로그인</button>
+              <button className="py-3 px-5 bg-emerald-500">
+                {isLogin ? "로그인" : "회원가입"}
+              </button>
             </div>
           </div>
           <div className="mt-10">
-            <p>소셜 계정으로 로그인</p>
+            <p>소셜 계정으로 {isLogin ? "로그인" : "회원가입"}</p>
             <div className="socialWrapper mt-4">
               <button>
                 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
@@ -90,9 +95,15 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
               </button>
             </div>
           </div>
-          <p className="register">
-            아직 회원이 아니신가요? <button className="font-bold">회원가입</button>
-          </p>
+          {isLogin ? (
+            <p className="register" onClick={() => setIsLogin(!isLogin)}>
+              아직 회원이 아니신가요? <button className="font-bold">회원가입</button>
+            </p>
+          ) : (
+            <p className="register" onClick={() => setIsLogin(!isLogin)}>
+              계정이 이미 있으신가요? <button className="font-bold">로그인</button>
+            </p>
+          )}
         </div>
         <button className="absolute top-0 right-0 p-5 text-white" onClick={setModalOpen}>
           닫기
