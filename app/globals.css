@@ -17,7 +17,7 @@
 }
 
 body {
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
 }
 
 @layer utilities {
@@ -297,4 +297,49 @@ textarea {
   background: lightgray;
   border-radius: 100%;
   margin-top: -30px;
+}
+
+/* 글 세부 조회 스타일 */
+.authorOptionsWrapper {
+  display: inline-flex;
+  justify-content: right;
+  gap: 5px;
+  color: gray;
+}
+
+.postInfoWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postInfoWrapper > span:first-of-type {
+  font-weight: bold;
+}
+
+.postInfoWrapper > button {
+  display: flex;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 4em;
+  padding: 0 10px;
+}
+
+.tagsWrapper {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.tagsWrapper > div {
+  padding: 0px 16px;
+  color: #12b886;
+  background-color: #f8f9fa;
+  border-radius: 1rem;
+}
+
+.seriesWrapper {
+  padding: 2rem 1.5rem;
+  margin-top: 2em;
+  background-color: #f8f9fa;
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
+  border-radius: 8px;
 }
