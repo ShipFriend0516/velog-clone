@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 declare global {
   interface AuthState {
@@ -12,7 +12,7 @@ const useStore = create<AuthState>((set) => ({
   isLoggedIn: false,
 
   login: () => set({ isLoggedIn: true }),
-  logout: () => set({isLoggedIn: false})
+  logout: () => set({ isLoggedIn: false }),
 }));
 
 export default useStore;

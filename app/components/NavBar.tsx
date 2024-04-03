@@ -3,10 +3,11 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import Link from "next/link";
 import Image from "next/image";
-import exUserProfile from "/public/userProfile.jpg";
+import exUserProfile from "../../public/userProfile.jpg";
 import { useState, useEffect, useRef, MouseEvent } from "react";
 import { usePathname } from "next/navigation";
 import useStore from "../store";
+import LoginModal from "./LoginModal";
 
 const NavBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -36,7 +37,12 @@ const NavBar = () => {
   }, []);
 
   // Auth
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { login, logout, isLoggedIn } = useStore((state) => state);
+
+  const loginModalHandler = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     !isWritePage && (
@@ -113,11 +119,12 @@ const NavBar = () => {
           ) : (
             <>
               <button
-                onClick={login}
+                onClick={loginModalHandler}
                 className="font-bold rounded-3xl px-4 py-1 border bg-black hover:bg-gray-900 text-white transition-colors"
               >
                 로그인
               </button>
+              {isModalOpen && <LoginModal setModalOpen={loginModalHandler} />}
             </>
           )}
         </div>
