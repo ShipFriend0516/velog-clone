@@ -17,7 +17,8 @@ const NavBar = () => {
   };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const isWritePage = usePathname() === "/write";
+  let pathname = usePathname();
+  const isWritePage = pathname === "/write";
 
   const handleClickOutside = (event: MouseEvent) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {

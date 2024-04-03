@@ -188,6 +188,8 @@ textarea {
   border: 0;
 }
 
+/* 로그인 모달 스타일 */
+
 .glass {
   min-width: 640px;
   min-height: 530px;
@@ -275,4 +277,16 @@ textarea {
     opacity: 0.95;
     top: 50%;
   }
+}
+
+.text-shadow {
+  text-shadow: 5px 10px 0px #d0d9d6;
+}
+
+.shadow-custom {
+  width: 160px;
+  height: 10px;
+  background: lightgray;
+  border-radius: 100%;
+  margin-top: -30px;
 }
