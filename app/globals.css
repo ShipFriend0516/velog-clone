@@ -191,12 +191,25 @@ textarea {
 /* 로그인 모달 스타일 */
 
 .glass {
-  min-width: 640px;
-  min-height: 530px;
+  width: 640px;
+  height: 530px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   backdrop-filter: blur(150px);
   -webkit-backdrop-filter: blur(150px);
+
+  @media (max-width: 640px) {
+    width: 100vw;
+    height: 100vh;
+
+    &.glass > div:first-of-type {
+      width: 0;
+    }
+
+    &.glass > div:last-of-type {
+      width: 100%;
+    }
+  }
 }
 
 .glass > div:first-of-type {

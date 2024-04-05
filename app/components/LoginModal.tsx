@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import LoginIllust from "./LoginIllust";
+import useStore from "../store";
 
 interface LoginModalControl {
   setModalOpen: () => void;
@@ -8,9 +9,17 @@ interface LoginModalControl {
 
 const LoginModal = ({ setModalOpen }: LoginModalControl) => {
   const [isLogin, setIsLogin] = useState(true);
+  const { login } = useStore((state) => state);
+  const handleLogin = () => {
+    login();
+    setModalOpen();
+  };
+  const handleRegister = () => {};
   return (
     <>
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 z-50 shadow-2xl opacity-95 glass flex ">
+      <div
+        className={`loginModal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 z-50 shadow-2xl opacity-95 glass flex `}
+      >
         <div className="bg-gray-200 ">
           <LoginIllust />
           환영합니다.
@@ -25,7 +34,10 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
                 type="email"
                 placeholder={"이메일을 입력하세요."}
               />
-              <button className="py-3 px-5 bg-emerald-500">
+              <button
+                onClick={isLogin ? handleLogin : handleRegister}
+                className="py-3 px-5 bg-emerald-500"
+              >
                 {isLogin ? "로그인" : "회원가입"}
               </button>
             </div>
