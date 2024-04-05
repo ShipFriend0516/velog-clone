@@ -2,7 +2,7 @@ import SaveArticlePreview from "../components/Save-Article-Preview";
 
 const SavePostPage = () => {
   return (
-    <section className="max-w-5xl mx-auto p-20">
+    <section className="max-w-5xl mx-auto p-4 md:p-20">
       <h2 className="text-5xl font-bold mb-16">임시 글 목록</h2>
       <div className="flex flex-col justify-start gap-5">
         <SaveArticlePreview
