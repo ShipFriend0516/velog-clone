@@ -52,7 +52,7 @@ const ArticlePreview = ({
   };
 
   return (
-    <div className="w-full h-96 shadow-xl rounded-sm flex flex-col justify-between hover:translate-y-0 md:hover:-translate-y-3  md:hover:shadow-2xl transition cursor-pointer">
+    <div className="article-preview w-full flex-nowrap shadow-xl rounded-sm flex flex-col justify-between hover:translate-y-0 md:hover:-translate-y-3  md:hover:shadow-2xl transition cursor-pointer">
       <div className="flex flex-col justify-between flex-grow overflow-hidden" onClick={postClick}>
         {thumbnailURL && (
           <Image

@@ -47,7 +47,7 @@ const NavBar = () => {
 
   return (
     !isWritePage && (
-      <header className="max-w-5xl mx-auto h-16 p-5 flex justify-between items-center">
+      <header className="navbar max-w-5xl mx-auto h-16 p-5 flex justify-between items-center">
         <div>
           <Link href="/">
             <svg
