@@ -140,7 +140,7 @@ const WritePage = () => {
           </div>
         </div>
       </form>
-      <div className="mdPreview hidden lg:w-1/2 lg:flex"></div>
+      <div className="bg-gray-50 mdPreview hidden lg:w-1/2 lg:flex"></div>
     </section>
   );
 };
