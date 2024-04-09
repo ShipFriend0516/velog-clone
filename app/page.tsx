@@ -6,28 +6,39 @@ import { MdRssFeed } from "react-icons/md";
 import { useState } from "react";
 import ArticlePreview from "./components/ArticlePreview";
 
+interface FilterStyle {
+  "--selectedFilter": number;
+}
+
 export default function Home() {
   const sort = ["trend", "recent", "feed"];
-  const [selected, setSelected] = useState("trend");
-  const sortOnClick = (e: Event) => {
+  const [selected, setSelected] = useState(0);
+  const sortOnClick = (filter: number) => {
     // const kind = e.target!.value;
+    setSelected(filter);
   };
+
+  const filterStyle: FilterStyle = {
+    "--selectedFilter": selected,
+  };
+
   return (
     <main className="mainpage mx-auto pb-1 p-4 lg:p-2">
       <div className="p-5">
-        <ul className="list-none inline-flex gap-3">
-          <li value={"trend"} className={`selected`}>
-            <FaArrowTrendUp />
-            트렌딩
+        <ul className="filterWrapper list-none inline-flex">
+          <li className={`${selected === 0 && "selected"}`} onClick={() => sortOnClick(0)}>
+            <FaArrowTrendUp width={24} height={24} />
+            <span>트렌딩</span>
           </li>
-          <li value={"recent"} className={`${selected}`}>
-            <FaRegClock />
-            최신
+          <li className={`${selected === 1 && "selected"}`} onClick={() => sortOnClick(1)}>
+            <FaRegClock width={24} height={24} />
+            <span>최신</span>
           </li>
-          <li value={"feed"} className={`${selected}`}>
-            <MdRssFeed />
-            피드
+          <li className={`${selected === 2 && "selected"}`} onClick={() => sortOnClick(2)}>
+            <MdRssFeed width={24} height={24} />
+            <span>피드</span>
           </li>
+          <li style={filterStyle as React.CSSProperties} className="underbar"></li>
         </ul>
       </div>
       <div className="article-grid p-4 lg:p-2">

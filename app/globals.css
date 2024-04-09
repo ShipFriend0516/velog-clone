@@ -56,12 +56,6 @@ li {
   cursor: pointer;
 }
 
-li.selected {
-  text-decoration: underline;
-  text-underline-offset: 10px;
-  color: black;
-}
-
 .dropdown {
   z-index: 20;
   position: absolute;
@@ -87,6 +81,37 @@ li.selected {
 }
 
 /* 메인 페이지 스타일 */
+
+.filterWrapper {
+  position: relative;
+  height: 48px;
+  user-select: none;
+  gap: 3px;
+}
+
+.underbar {
+  background-color: black;
+  height: 2px;
+  width: 33.3%;
+  position: absolute;
+  bottom: 0;
+  transform: translateX(calc(var(--selectedFilter) * 100% + var(--selectedFilter) * 3px));
+  transition: 0.5s;
+}
+
+.filterWrapper li {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  text-wrap: nowrap;
+  width: 80px;
+  font-size: 20px;
+}
+
+li.selected {
+  color: black;
+}
 
 .article-grid {
   display: grid;
