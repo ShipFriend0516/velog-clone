@@ -82,6 +82,10 @@ li {
 
 /* 메인 페이지 스타일 */
 
+.selecter {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+}
+
 .filterWrapper {
   position: relative;
   height: 48px;
@@ -96,7 +100,7 @@ li {
   position: absolute;
   bottom: 0;
   transform: translateX(calc(var(--selectedFilter) * 100% + var(--selectedFilter) * 3px));
-  transition: 0.5s;
+  transition: 0.25s ease-out;
 }
 
 .filterWrapper li {
@@ -106,7 +110,7 @@ li {
   gap: 8px;
   text-wrap: nowrap;
   width: 80px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 li.selected {

@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <main className="mainpage mx-auto pb-1 p-4 lg:p-2">
-      <div className="p-5">
+      <div className="p-5 flex justify-between">
         <ul className="filterWrapper list-none inline-flex">
           <li className={`${selected === 0 && "selected"}`} onClick={() => sortOnClick(0)}>
             <FaArrowTrendUp width={24} height={24} />
@@ -40,6 +40,38 @@ export default function Home() {
           </li>
           <li style={filterStyle as React.CSSProperties} className="underbar"></li>
         </ul>
+        <div className="periodFilter flex items-center">
+          <div className="selecter w-20 lg:w-28 h-8 rounded flex justify-between items-center px-2 mr-2.5 bg-gray-50 text-black cursor-pointer select-none text-nowrap hover:opacity-75">
+            <span>이번 주</span>
+            <svg
+              className="text-2xl"
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path d="M7 10l5 5 5-5z"></path>
+            </svg>
+          </div>
+          <div className="periodDropdown"></div>
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            className="HomeTab_extra__x0Vmq"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+          </svg>
+        </div>
       </div>
       <div className="article-grid p-4 lg:p-2">
         <ArticlePreview
