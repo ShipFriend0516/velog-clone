@@ -1,17 +1,39 @@
 "use client";
+import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
 const WritePage = () => {
   const router = useRouter();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [tags, setTags] = useState<String[]>([]);
+  const onSubmit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/posts", {
+        title: title,
+        content: content,
+        thumbnailUrl: thumbnailUrl,
+        tags: tags,
+      });
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <section className="writeWrapper flex justify-between ">
       <form className="mdWriter lg:w-1/2 flex flex-col justify-between overflow-hidden">
         <div className="py-8 px-12 flex flex-col gap-5 flex-grow">
           <input
+            name="title"
             className="text-3xl md:text-5xl"
             type="text"
             placeholder="제목을 입력하세요"
+            onChange={(e) => setTitle(e.target.value)}
           ></input>
           <hr className="w-20 h-2  my-2 bg-black" />
           <input className="md:text-xl" type="text" placeholder="태그를 입력하세요" />
@@ -25,7 +47,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -38,7 +60,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -51,7 +73,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -66,7 +88,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -79,7 +101,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -92,7 +114,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -105,7 +127,7 @@ const WritePage = () => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 height="1em"
                 width="1em"
@@ -119,6 +141,8 @@ const WritePage = () => {
             className="italic text-lg contentArea"
             placeholder="당신의 이야기를 적어보세요..."
             id="contentBody"
+            name="content"
+            onChange={(e) => setContent(e.target.value)}
           ></textarea>
         </div>
         <div className="writeFooter h-20 p-4 bg-white inline-flex justify-between items-center">
@@ -134,7 +158,10 @@ const WritePage = () => {
           </button>
           <div>
             <button className="text-emerald-500 font-bold mr-2">임시저장</button>
-            <button className="font-bold bg-emerald-500 hover:bg-emerald-400 text-white rounded-md">
+            <button
+              onClick={(e) => onSubmit(e)}
+              className="font-bold bg-emerald-500 hover:bg-emerald-400 text-white rounded-md"
+            >
               출간하기
             </button>
           </div>

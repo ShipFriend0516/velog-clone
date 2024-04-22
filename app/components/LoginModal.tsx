@@ -2,6 +2,7 @@
 import { useState } from "react";
 import LoginIllust from "./LoginIllust";
 import useStore from "../store";
+import axios from "axios";
 
 interface LoginModalControl {
   setModalOpen: () => void;
@@ -9,12 +10,88 @@ interface LoginModalControl {
 
 const LoginModal = ({ setModalOpen }: LoginModalControl) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login } = useStore((state) => state);
-  const handleLogin = () => {
-    login();
-    setModalOpen();
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("/auth/login", {
+        email,
+        password,
+      });
+      console.log(response);
+    } catch (e) {
+      console.error(e);
+    }
+    // login();
+    // setModalOpen();
   };
-  const handleRegister = () => {};
+  const handleRegister = async () => {
+    // 회원가입
+    setError("");
+    if (usernameValidate()) {
+      console.log("닉네임 유효성 검사 통과");
+    } else {
+      setError("닉네임은 특수문자 없이 3글자 이상 10글자 이하여야 합니다.");
+      console.error("닉네임 유효성 검사 실패");
+      return;
+    }
+    if (emailValidate()) {
+      console.log("이메일 유효성 검사 통과");
+    } else {
+      setError("이메일이 유효하지 않습니다.");
+      console.error("이메일 유효성 검사 실패");
+      return;
+    }
+    if (passwordValidate()) {
+      console.log("비밀번호 유효성 검사 통과");
+    } else {
+      setError("비밀번호는 4자 이상 16자 이하여야 합니다.");
+      console.error("비밀번호 유효성 검사 실패");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
+
+      if (response.status === 201) {
+        console.log("회원가입 성공! 환영해요");
+        setModalOpen();
+      }
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        if (e.response!.status === 409) {
+          setError("이미 존재하는 이메일입니다.");
+        }
+      }
+      // console.error(e);
+    }
+  };
+  const usernameValidate = () => {
+    const regex = /^[가-힣ㄱ-ㅎa-zA-Z0-9]{3,10}$/;
+    if (regex.test(username)) return true;
+    else return false;
+  };
+
+  const emailValidate = () => {
+    const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (regex.test(email)) return true;
+    else return false;
+  };
+
+  const passwordValidate = () => {
+    const regex = /^.{4,16}$/;
+    if (regex.test(password)) return true;
+    else return false;
+  };
+
   return (
     <>
       <div
@@ -27,12 +104,31 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
         <div>
           <h3 className="text-xl">{isLogin ? "로그인" : "회원가입"}</h3>
           <div>
-            <p>이메일로 로그인</p>
+            <p>이메일로 {isLogin ? "로그인" : "회원가입"}</p>
+            {!isLogin && (
+              <div className="inline-flex w-full mt-3">
+                <input
+                  className="py-3 px-5 flex-grow outline-none border box-border  focus:border-emerald-500 text-black"
+                  type="text"
+                  placeholder={"닉네임을 입력하세요"}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+            )}
             <div className="inline-flex w-full mt-3">
               <input
                 className="py-3 px-5 flex-grow outline-none border box-border  focus:border-emerald-500 text-black"
                 type="email"
                 placeholder={"이메일을 입력하세요."}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="inline-flex w-full mt-3">
+              <input
+                className="py-3 px-5 flex-grow outline-none border box-border  focus:border-emerald-500 text-black"
+                type="password"
+                placeholder={"비밀번호를 입력하세요."}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 onClick={isLogin ? handleLogin : handleRegister}
@@ -41,6 +137,7 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
                 {isLogin ? "로그인" : "회원가입"}
               </button>
             </div>
+            {error && <div className="text-red-400 text-sm">{error}</div>}
           </div>
           <div className="mt-10">
             <p>소셜 계정으로 {isLogin ? "로그인" : "회원가입"}</p>
@@ -95,9 +192,9 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
                   >
                     <path
                       fill="#fff"
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M7.84 20v-8.945H4.844V7.5H7.84V4.7C7.84 1.655 9.7 0 12.414 0c1.3 0 2.418.098 2.742.14v3.18h-1.883c-1.476 0-1.761.703-1.761 1.73V7.5h3.332l-.457 3.555h-2.875V20"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </mask>
                   <g mask="url(#facebook-icon_svg__a)">

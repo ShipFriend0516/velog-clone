@@ -3,8 +3,9 @@ import Image from "next/image";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaRegClock } from "react-icons/fa6";
 import { MdRssFeed } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArticlePreview from "./components/ArticlePreview";
+import axios from "axios";
 
 interface FilterStyle {
   "--selectedFilter": number;
@@ -14,7 +15,6 @@ export default function Home() {
   const sort = ["trend", "recent", "feed"];
   const [selected, setSelected] = useState(0);
   const sortOnClick = (filter: number) => {
-    // const kind = e.target!.value;
     setSelected(filter);
   };
 
@@ -22,6 +22,18 @@ export default function Home() {
     "--selectedFilter": selected,
   };
 
+  const renderPosts = async () => {
+    try {
+      const response = await axios.get("/api/posts");
+      console.table(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    renderPosts();
+  }, []);
   return (
     <main className="mainpage mx-auto pb-1 p-4 lg:p-2">
       <div className="p-5 flex justify-between">
@@ -47,7 +59,7 @@ export default function Home() {
               className="text-2xl"
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               viewBox="0 0 24 24"
               height="1em"
               width="1em"
@@ -61,7 +73,7 @@ export default function Home() {
           <svg
             stroke="currentColor"
             fill="currentColor"
-            stroke-width="0"
+            strokeWidth="0"
             viewBox="0 0 24 24"
             className="HomeTab_extra__x0Vmq"
             height="1em"
