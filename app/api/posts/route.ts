@@ -9,9 +9,9 @@ const jwt = require("jsonwebtoken");
 export async function GET(req: Request) {
   try {
     connect();
-    const posts = await Post.find({});
-    console.log(posts);
-    return Response.json({ success: true, data: posts });
+    const posts = await Post.find({}).populate("author", "username").lean();
+
+    return Response.json({ success: true, posts });
   } catch (error) {
     console.error(error);
     return Response.json({ success: false, error: "Cannot Find Posts" });

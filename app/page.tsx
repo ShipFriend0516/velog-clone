@@ -12,10 +12,12 @@ interface FilterStyle {
 }
 
 interface Post {
-  id: string;
+  _id: string;
   title: string;
   content: string;
-  author: string;
+  author: {
+    username: string;
+  };
   likes: number;
   tags?: string[];
   thumbnailUrl?: string;
@@ -39,7 +41,7 @@ export default function Home() {
     try {
       const response = await axios.get("/api/posts");
       console.table(response);
-      setPosts(response.data.data);
+      setPosts(response.data.posts);
     } catch (err) {
       console.error(err);
     }
@@ -54,12 +56,12 @@ export default function Home() {
       return posts.map((post) => {
         return (
           <ArticlePreview
-            key={post.id}
+            key={post._id}
             title={post.title}
             content={post.content}
             uploadTime={new Date(post.updatedAt).getTime()}
             comments={0}
-            userName={"멧도요"}
+            userName={post.author.username}
             likes={post.likes || 0}
           />
         );
