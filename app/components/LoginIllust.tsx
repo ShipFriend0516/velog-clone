@@ -130,8 +130,8 @@ const LoginIllust = () => {
       <path
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="4"
+        strokeMiterlimit="10"
+        strokeWidth="4"
         d="M241.4 653.89c-4.13-7.64.55-17 5.93-23.81s11.95-13.91 11.81-22.59c-.2-12.48-13.45-19.85-24-26.46a117 117 0 0 1-21.56-17.31 31.49 31.49 0 0 1-6.63-8.87c-2.19-4.88-2.13-10.43-2-15.78q.69-26.7 2.64-53.36"
       ></path>
       <path
@@ -145,8 +145,8 @@ const LoginIllust = () => {
       <path
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="4"
+        strokeMiterlimit="10"
+        strokeWidth="4"
         d="M817.9 646.36c-3-5.64.41-12.56 4.39-17.59s8.82-10.27 8.71-16.68c-.14-9.22-9.93-14.66-17.74-19.55a86.29 86.29 0 0 1-15.94-12.82 23.55 23.55 0 0 1-4.9-6.56c-1.61-3.6-1.57-7.7-1.47-11.65q.51-19.72 2-39.42"
       ></path>
       <path
@@ -160,8 +160,8 @@ const LoginIllust = () => {
       <path
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
-        stroke-width="4"
+        strokeMiterlimit="10"
+        strokeWidth="4"
         d="M939.57 660.89c4.13-7.64-.55-17-5.93-23.81s-12-13.91-11.81-22.59c.2-12.48 13.45-19.85 24-26.46a117 117 0 0 0 21.57-17.31 31.49 31.49 0 0 0 6.63-8.87c2.19-4.88 2.13-10.43 2-15.78q-.63-26.74-2.63-53.35"
       ></path>
       <path

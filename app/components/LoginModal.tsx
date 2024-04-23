@@ -23,6 +23,11 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
         password,
       });
       console.log(response);
+      if (response.status === 200) {
+        sessionStorage.setItem("accessToken", response.data.accessToken);
+        login();
+        setModalOpen();
+      }
     } catch (e) {
       console.error(e);
     }
@@ -35,7 +40,7 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
     if (usernameValidate()) {
       console.log("닉네임 유효성 검사 통과");
     } else {
-      setError("닉네임은 특수문자 없이 3글자 이상 10글자 이하여야 합니다.");
+      setError("닉네임은 특수문자 없이 2글자 이상 10글자 이하여야 합니다.");
       console.error("닉네임 유효성 검사 실패");
       return;
     }
@@ -75,7 +80,7 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
     }
   };
   const usernameValidate = () => {
-    const regex = /^[가-힣ㄱ-ㅎa-zA-Z0-9]{3,10}$/;
+    const regex = /^[가-힣ㄱ-ㅎa-zA-Z0-9]{2,10}$/;
     if (regex.test(username)) return true;
     else return false;
   };

@@ -5,6 +5,7 @@ export interface PostType extends Document {
   content: string;
   author: mongoose.Types.ObjectId;
   tags: string[];
+  likes: number;
   thumbnailUrl?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -19,6 +20,7 @@ const postSchema: Schema = new Schema({
     required: true,
   },
   tags: [{ type: String }],
+  likes: { type: Number, default: 0, required: true },
   thumbnailUrl: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },

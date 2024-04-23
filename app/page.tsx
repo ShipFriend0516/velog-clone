@@ -11,8 +11,21 @@ interface FilterStyle {
   "--selectedFilter": number;
 }
 
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  likes: number;
+  tags?: string[];
+  thumbnailUrl?: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export default function Home() {
   const sort = ["trend", "recent", "feed"];
+  const [posts, setPosts] = useState<Post[]>();
   const [selected, setSelected] = useState(0);
   const sortOnClick = (filter: number) => {
     setSelected(filter);
@@ -22,18 +35,38 @@ export default function Home() {
     "--selectedFilter": selected,
   };
 
-  const renderPosts = async () => {
+  const getPosts = async () => {
     try {
       const response = await axios.get("/api/posts");
       console.table(response);
+      setPosts(response.data.data);
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    renderPosts();
+    getPosts();
   }, []);
+
+  const renderPosts = () => {
+    if (posts) {
+      return posts.map((post) => {
+        return (
+          <ArticlePreview
+            key={post.id}
+            title={post.title}
+            content={post.content}
+            uploadTime={new Date(post.updatedAt).getTime()}
+            comments={0}
+            userName={"멧도요"}
+            likes={post.likes || 0}
+          />
+        );
+      });
+    }
+  };
+
   return (
     <main className="mainpage mx-auto pb-1 p-4 lg:p-2">
       <div className="p-5 flex justify-between">
@@ -139,46 +172,7 @@ export default function Home() {
           likes={10}
           thumbnailURL="https://img.freepik.com/premium-psd/3d-render-glassy-background-modern-glass-morphism-style_125452-3202.jpg?w=900"
         />
-        <ArticlePreview
-          title={"글 제목"}
-          content={"글의 내용이 이렇게 보입니다."}
-          uploadTime={1711694241133}
-          comments={0}
-          userName={"멧도요"}
-          likes={10}
-        />
-        <ArticlePreview
-          title={"글 제목"}
-          content={"글의 내용이 이렇게 보입니다."}
-          uploadTime={1711694241133}
-          comments={0}
-          userName={"멧도요"}
-          likes={10}
-        />
-        <ArticlePreview
-          title={"글 제목"}
-          content={"글의 내용이 이렇게 보입니다."}
-          uploadTime={1711694241133}
-          comments={0}
-          userName={"멧도요"}
-          likes={10}
-        />
-        <ArticlePreview
-          title={"글 제목"}
-          content={"글의 내용이 이렇게 보입니다."}
-          uploadTime={1711694241133}
-          comments={0}
-          userName={"멧도요"}
-          likes={10}
-        />
-        <ArticlePreview
-          title={"글 제목"}
-          content={"글의 내용이 이렇게 보입니다."}
-          uploadTime={1711694241133}
-          comments={0}
-          userName={"멧도요"}
-          likes={10}
-        />
+        {renderPosts()}
       </div>
     </main>
   );

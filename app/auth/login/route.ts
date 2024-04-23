@@ -7,12 +7,16 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
     connect();
-    const pw = User.findOne({ email }, { password });
-    const result = await bcrypt.compare(password, pw.toString());
+    const user = await User.findOne({ email });
+    const result = await bcrypt.compare(password, user.password);
     if (result) {
       // 비밀번호 일치하면
-      console.log(`${email} 유저의 로그인 성공`);
-      return Response.json({ success: true, message: "유저 로그인 성공" });
+      console.log(`POST 200 ${email} 유저의 로그인 성공`);
+      const token = jwt.sign({ email }, process.env.TOKEN_SECRET, {
+        expiresIn: process.env.TOKEN_EXPIRES,
+      });
+      console.log("발급된 토큰", token);
+      return Response.json({ success: true, message: "유저 로그인 성공", accessToken: token });
     } else {
       return Response.json({ success: false, message: " 잘못된 비밀번호입니다." }, { status: 400 });
     }

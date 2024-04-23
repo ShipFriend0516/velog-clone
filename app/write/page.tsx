@@ -13,12 +13,21 @@ const WritePage = () => {
   const onSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/posts", {
-        title: title,
-        content: content,
-        thumbnailUrl: thumbnailUrl,
-        tags: tags,
-      });
+      const accessToken = sessionStorage.getItem("accessToken");
+      const response = await axios.post(
+        "/api/posts",
+        {
+          title: title,
+          content: content,
+          thumbnailUrl: thumbnailUrl,
+          tags: tags,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       console.log(response.data);
     } catch (err) {
       console.error(err);
