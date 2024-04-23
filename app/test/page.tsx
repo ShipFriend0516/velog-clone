@@ -1,5 +1,6 @@
 import Image from "next/image";
 import LoginModal from "../components/LoginModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const TestPage = () => {
   return (
@@ -13,6 +14,7 @@ const TestPage = () => {
         width={100}
         height={100}
       ></Image>
+      <LoadingSpinner />
     </div>
   );
 };

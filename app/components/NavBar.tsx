@@ -48,6 +48,18 @@ const NavBar = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const logoutHandler = () => {
+    sessionStorage.removeItem("accessToken");
+    logout();
+  };
+
+  useEffect(() => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    if (accessToken) {
+      login();
+    }
+  }, [isLoggedIn,login]);
+
   return (
     !isWritePage && (
       <header className="navbar max-w-5xl mx-auto h-16 p-5 flex justify-between items-center bg-transparent">
@@ -135,7 +147,7 @@ const NavBar = () => {
                     <Link href={"/saves"}>임시 글</Link>
                     <Link href={"/lists"}>읽기 목록</Link>
                     <Link href={"/setting"}>설정</Link>
-                    <div onClick={logout}>로그아웃</div>
+                    <div onClick={logoutHandler}>로그아웃</div>
                   </div>
                 )}
               </button>
