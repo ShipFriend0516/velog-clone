@@ -10,6 +10,7 @@ const WritePage = () => {
   const [content, setContent] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [tags, setTags] = useState<String[]>([]);
+  const [tagInput, setTagInput] = useState("");
   const onSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
@@ -33,6 +34,20 @@ const WritePage = () => {
       console.error(err);
     }
   };
+
+  const tagInputHandler = (e: React.KeyboardEvent) => {
+    if ((e.code === "Comma" || e.code === "Enter") && tagInput) {
+      e.preventDefault();
+      if (tags.includes(tagInput.trim())) {
+      } else if (!e.nativeEvent.isComposing) {
+        setTags([...tags, tagInput.trim()]);
+        setTagInput("");
+      }
+    } else if (e.code === "Backspace" && !tagInput) {
+      setTags([...tags.slice(0, -1)]);
+    }
+  };
+
   return (
     <section className="writeWrapper flex justify-between ">
       <form className="mdWriter lg:w-1/2 flex flex-col justify-between overflow-hidden">
@@ -45,7 +60,29 @@ const WritePage = () => {
             onChange={(e) => setTitle(e.target.value)}
           ></input>
           <hr className="w-20 h-2  my-2 bg-black" />
-          <input className="md:text-xl" type="text" placeholder="태그를 입력하세요" />
+          <div>
+            {tags.map((tag, index) => {
+              return (
+                <div
+                  key={index}
+                  className="cursor-pointer px-4 h-8 inline-flex items-center bg-gray-100 text-emerald-400 rounded-2xl mx-1 mr-2 my-1 animation-earthquakes"
+                  onClick={() => {
+                    setTags(tags.filter((tag, idx) => index !== idx));
+                  }}
+                >
+                  {tag}
+                </div>
+              );
+            })}
+            <input
+              onKeyDown={(e) => tagInputHandler(e)}
+              className="md:text-xl"
+              type="text"
+              value={tagInput}
+              onChange={(e) => setTagInput(e.target.value)}
+              placeholder="태그를 입력하세요"
+            />
+          </div>
           <div className="writeTools inline-flex items-center gap-4 flex-wrap">
             <button className="font-serif">H1</button>
             <button className="font-serif">H2</button>

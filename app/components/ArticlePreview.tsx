@@ -67,7 +67,7 @@ const ArticlePreview = ({
         <div className={`${thumbnailURL ? "h-1/2" : "h-full"} flex flex-col justify-between`}>
           <div className="p-5">
             <div className="font-bold">{title}</div>
-            <p>{content}</p>
+            <p>{content.length > 50 ? `${content.slice(0, 50)}...` : content}</p>
           </div>
           <div className="p-5 text-gray-500 font-light text-sm">
             <span>{difference + postfix}</span> • <span>{comments}개의 댓글</span>

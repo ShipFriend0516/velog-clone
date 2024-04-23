@@ -205,6 +205,28 @@ textarea {
   }
 }
 
+.animation-earthquakes:hover {
+  animation-name: earthquakes;
+  animation-iteration-count: infinite;
+  animation-delay: 0.05s;
+  animation-duration: 1s;
+  animation-direction: alternate;
+}
+
+@keyframes earthquakes {
+  0% {
+    transform: rotate(3deg);
+  }
+
+  50% {
+    transform: rotate(-3deg);
+  }
+
+  100% {
+    transform: rotate(3deg);
+  }
+}
+
 /* 설정 페이지 스타일 */
 
 .settingDetail > div {
