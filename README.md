@@ -8,7 +8,12 @@ React, Nextjs, Zustand
 
 > 서버
 
-Express?
+Nextjs api routes
+
+> DB
+
+MongoDB, Mongoose
+
 
 ## 배포
 nextjs 사용하는 김에 vercel 사용
