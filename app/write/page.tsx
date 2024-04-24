@@ -3,18 +3,20 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import PostUploadConfirm from "../components/PostUploadConfirm";
 
 const WritePage = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  const [tags, setTags] = useState<String[]>([]);
+  const [isOpenUpload, setIsOpenUpload] = useState(false);
+  const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
-  const onSubmit = async (e: React.MouseEvent) => {
-    e.preventDefault();
+
+  const uploadPost = async () => {
     try {
-      const accessToken = sessionStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem("accessToken");
       const response = await axios.post(
         "/api/posts",
         {
@@ -30,9 +32,22 @@ const WritePage = () => {
         }
       );
       console.log(response.data);
+      if (response.data.success === true) {
+        router.push("/");
+      }
     } catch (err) {
       console.error(err);
     }
+  };
+
+  // 업로드 버튼 클릭
+  const uploadBtnClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsOpenUpload(!isOpenUpload);
+  };
+
+  const close = () => {
+    setIsOpenUpload(false);
   };
 
   const tagInputHandler = (e: React.KeyboardEvent) => {
@@ -50,6 +65,13 @@ const WritePage = () => {
 
   return (
     <section className="writeWrapper flex justify-between ">
+      {isOpenUpload && (
+        <PostUploadConfirm
+          post={{ title: title, content: content, thumbnailUrl: thumbnailUrl, tags: tags }}
+          close={close}
+          uploadPost={uploadPost}
+        />
+      )}
       <form className="mdWriter lg:w-1/2 flex flex-col justify-between overflow-hidden">
         <div className="py-8 px-12 flex flex-col gap-5 flex-grow">
           <input
@@ -129,7 +151,6 @@ const WritePage = () => {
               </svg>
             </button>
             <span className="bg-gray-400 w-0.5 h-6"></span>
-
             <button>
               <svg
                 stroke="currentColor"
@@ -203,10 +224,13 @@ const WritePage = () => {
             나가기
           </button>
           <div>
-            <button className="text-emerald-500 font-bold mr-2">임시저장</button>
+            <button className="text-emerald-500 font-bold mr-2 whiteBtn">임시저장</button>
             <button
-              onClick={(e) => onSubmit(e)}
-              className="font-bold bg-emerald-500 hover:bg-emerald-400 text-white rounded-md"
+              onClick={(e) => {
+                e.preventDefault();
+                uploadBtnClick(e);
+              }}
+              className="font-bold bg-emerald-500 hover:bg-emerald-400 text-white rounded-md greenBtn"
             >
               출간하기
             </button>

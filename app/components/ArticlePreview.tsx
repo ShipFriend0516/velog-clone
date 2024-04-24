@@ -78,26 +78,34 @@ const ArticlePreview = ({
 const calculateCreatedTime = (uploadTime: number) => {
   const now = new Date().getTime();
   const ago = Math.abs(uploadTime - now);
-  let difference = Math.floor(ago / 1000 / 60);
-  let postfix = "분 전";
+  let difference: number | null = Math.floor(ago / 1000);
+
+  let postfix = "방금 전";
   if (difference >= 60) {
     difference /= 60;
-    postfix = "시간 전";
+    postfix = "분 전";
     if (difference >= 24) {
-      difference /= 24;
-      postfix = "일 전";
-      if (difference >= 30) {
+      difference /= 60;
+      postfix = "시간 전";
+      if (difference >= 24) {
         difference /= 30;
-        postfix = "달 전";
-        if (difference >= 12) {
-          difference /= 12;
-          postfix = "년 전";
+        postfix = "일 전";
+        if (difference >= 30) {
+          difference = null;
+          postfix = `${new Date(uploadTime).getFullYear()}년 ${
+            new Date(uploadTime).getMonth() + 1
+          }월 ${new Date(uploadTime).getDate()}일`;
         }
       }
     }
   }
-
-  return `${Math.floor(difference)}${postfix}`;
+  if (postfix === "방금 전") {
+    return postfix;
+  } else if (difference && postfix) {
+    return `${Math.floor(difference)}${postfix}`;
+  } else {
+    return postfix;
+  }
 };
 
 export default ArticlePreview;

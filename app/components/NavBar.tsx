@@ -49,16 +49,16 @@ const NavBar = () => {
   };
 
   const logoutHandler = () => {
-    sessionStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
     logout();
   };
 
   useEffect(() => {
-    const accessToken = sessionStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       login();
     }
-  }, [isLoggedIn,login]);
+  }, [isLoggedIn, login]);
 
   return (
     !isWritePage && (

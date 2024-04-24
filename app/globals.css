@@ -200,9 +200,18 @@ textarea {
 
 .writeFooter button {
   padding: 10px 20px;
-  &:hover {
-    background-color: #f8f9fa;
-  }
+}
+
+.uploadConfirmWrapper {
+  width: 768px;
+}
+
+.separate-line {
+  width: 1px;
+  min-height: 425px;
+  background-color: #e9ecef;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .animation-earthquakes:hover {
@@ -211,6 +220,23 @@ textarea {
   animation-delay: 0.05s;
   animation-duration: 1s;
   animation-direction: alternate;
+}
+
+.animation-up {
+  animation-name: up;
+  animation-iteration-count: 1;
+  animation-duration: 0.3s;
+  transition: 0.3s;
+}
+
+@keyframes up {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 @keyframes earthquakes {
@@ -450,6 +476,27 @@ textarea {
 
 /* 공통 요소 */
 
+.whiteBtn {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: white;
+  color: #12b886;
+  border-radius: 4px;
+  padding: 0px 1.25rem;
+  font-size: 1rem;
+}
+
+.whiteBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .greenBtn {
   display: inline-flex;
   -webkit-box-align: center;
@@ -464,8 +511,11 @@ textarea {
   color: white;
   border-radius: 4px;
   padding: 0px 1.25rem;
-  height: 2rem;
   font-size: 1rem;
+}
+
+.greenBtn:hover {
+  background-color: #20c997;
 }
 
 /* 반응형 */
