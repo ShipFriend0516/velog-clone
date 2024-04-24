@@ -4,51 +4,35 @@ import { FaHeart } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 
 type ArticlePreview = {
+  key: string;
   title: string;
   content: string;
   uploadTime: number;
   comments: number;
   userProfile?: string;
   userName: string;
+  userId: string;
   likes: number;
   thumbnailURL?: string;
 };
 const ArticlePreview = ({
+  key,
   title,
   content,
   uploadTime,
   comments,
   userProfile,
   userName,
+  userId,
   likes,
   thumbnailURL,
 }: ArticlePreview) => {
   const router = useRouter();
 
-  const now = new Date().getTime();
-  const ago = Math.abs(uploadTime - now);
-  let difference = Math.floor(ago / 1000 / 60);
-  let postfix = "분 전";
-  if (difference >= 60) {
-    difference /= 60;
-    postfix = "시간 전";
-    if (difference >= 24) {
-      difference /= 24;
-      postfix = "일 전";
-      if (difference >= 30) {
-        difference /= 30;
-        postfix = "달 전";
-        if (difference >= 12) {
-          difference /= 12;
-          postfix = "년 전";
-        }
-      }
-    }
-  }
-  difference = Math.floor(difference);
+  let difference = calculateCreatedTime(uploadTime);
 
   const postClick = () => {
-    router.push(`@${userName}/${title}`);
+    router.push(`@${userId.split("@")[0]}/${title}`);
   };
 
   return (
@@ -70,7 +54,7 @@ const ArticlePreview = ({
             <p>{content.length > 50 ? `${content.slice(0, 50)}...` : content}</p>
           </div>
           <div className="p-5 text-gray-500 font-light text-sm">
-            <span>{difference + postfix}</span> • <span>{comments}개의 댓글</span>
+            <span>{difference}</span> • <span>{comments}개의 댓글</span>
           </div>
         </div>
       </div>
@@ -89,6 +73,31 @@ const ArticlePreview = ({
       </div>
     </div>
   );
+};
+
+const calculateCreatedTime = (uploadTime: number) => {
+  const now = new Date().getTime();
+  const ago = Math.abs(uploadTime - now);
+  let difference = Math.floor(ago / 1000 / 60);
+  let postfix = "분 전";
+  if (difference >= 60) {
+    difference /= 60;
+    postfix = "시간 전";
+    if (difference >= 24) {
+      difference /= 24;
+      postfix = "일 전";
+      if (difference >= 30) {
+        difference /= 30;
+        postfix = "달 전";
+        if (difference >= 12) {
+          difference /= 12;
+          postfix = "년 전";
+        }
+      }
+    }
+  }
+
+  return `${Math.floor(difference)}${postfix}`;
 };
 
 export default ArticlePreview;

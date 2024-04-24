@@ -6,23 +6,10 @@ import { MdRssFeed } from "react-icons/md";
 import { useEffect, useState } from "react";
 import ArticlePreview from "./components/ArticlePreview";
 import axios from "axios";
+import Post from "../types/PostType.d";
 
 interface FilterStyle {
   "--selectedFilter": number;
-}
-
-interface Post {
-  _id: string;
-  title: string;
-  content: string;
-  author: {
-    username: string;
-  };
-  likes: number;
-  tags?: string[];
-  thumbnailUrl?: string;
-  createdAt: number;
-  updatedAt: number;
 }
 
 export default function Home() {
@@ -62,6 +49,7 @@ export default function Home() {
             uploadTime={new Date(post.updatedAt).getTime()}
             comments={0}
             userName={post.author.username}
+            userId={post.author.email}
             likes={post.likes || 0}
           />
         );
@@ -127,6 +115,7 @@ export default function Home() {
           uploadTime={1711694241133}
           comments={0}
           userName={"멧도요"}
+          userId={"멧도요"}
           likes={10}
         />
         <ArticlePreview
@@ -135,6 +124,7 @@ export default function Home() {
           uploadTime={1711694241133}
           comments={0}
           userName={"멧도요"}
+          userId={"멧도요"}
           likes={10}
           thumbnailURL={
             "https://velog.velcdn.com/images/shipfriend/profile/dc545353-6808-4b90-a1f2-dabc58272f49/image.jpg"
@@ -146,6 +136,7 @@ export default function Home() {
           uploadTime={1711694241133}
           comments={0}
           userName={"수상한 누군가"}
+          userId={"멧도요"}
           likes={10}
         />
         <ArticlePreview
@@ -154,6 +145,7 @@ export default function Home() {
           uploadTime={1711694241133}
           comments={0}
           userName={"수상한 누군가"}
+          userId={"멧도요"}
           likes={-1}
         />
         <ArticlePreview
@@ -163,6 +155,7 @@ export default function Home() {
           comments={0}
           thumbnailURL="https://images.unsplash.com/photo-1684457718740-190e844d5cb2?q=80&w=1320&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           userName={"멧도요"}
+          userId={"멧도요"}
           likes={10}
         />
         <ArticlePreview
@@ -171,6 +164,7 @@ export default function Home() {
           uploadTime={1711694241133}
           comments={0}
           userName={"멧도요"}
+          userId={"멧도요"}
           likes={10}
           thumbnailURL="https://img.freepik.com/premium-psd/3d-render-glassy-background-modern-glass-morphism-style_125452-3202.jpg?w=900"
         />
