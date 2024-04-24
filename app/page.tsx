@@ -110,6 +110,7 @@ export default function Home() {
       </div>
       <div className="article-grid p-4 lg:p-2">
         <ArticlePreview
+          key="1"
           title={"글 제목"}
           content={"글의 내용이 이렇게 보입니다."}
           uploadTime={1711694241133}
@@ -119,6 +120,7 @@ export default function Home() {
           likes={10}
         />
         <ArticlePreview
+          key="2"
           title={"사진이 있는 글 제목"}
           content={"사진이 있으면 이렇게 보여요"}
           uploadTime={1711694241133}
@@ -131,6 +133,7 @@ export default function Home() {
           }
         />
         <ArticlePreview
+          key="3"
           title={"벨로그 클론코딩"}
           content={"도전"}
           uploadTime={1711694241133}
@@ -140,6 +143,7 @@ export default function Home() {
           likes={10}
         />
         <ArticlePreview
+          key="4"
           title={"엘든링"}
           content={"좀 재밌네요."}
           uploadTime={1711694241133}
@@ -149,6 +153,7 @@ export default function Home() {
           likes={-1}
         />
         <ArticlePreview
+          key="5"
           title={"피라미드의 비밀"}
           content={"피라미드는...."}
           uploadTime={1711694241133}
@@ -159,6 +164,7 @@ export default function Home() {
           likes={10}
         />
         <ArticlePreview
+          key="6"
           title={"글래스모피즘"}
           content={"신기하다"}
           uploadTime={1711694241133}
