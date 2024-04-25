@@ -3,11 +3,16 @@ import Image from "next/image";
 import LoginModal from "../components/LoginModal";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useEffect } from "react";
+import axios from "axios";
 
 const TestPage = () => {
+  const getMethod = async () => {
+    const response = await axios.get("/api/test");
+    console.log(response);
+  };
   useEffect(() => {
-    console.log(process.env.DB_USER);
-  });
+    getMethod();
+  }, []);
   return (
     <div className="flex justify-center items-center">
       <Image
