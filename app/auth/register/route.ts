@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   const { email, password, username } = await req.json();
   try {
     connect();
-    const hash = await bcrypt.hash(password, 12);
+    const hash = await bcrypt.hash(password, 256);
     const exUser = await User.find(
       {
         email: email,
