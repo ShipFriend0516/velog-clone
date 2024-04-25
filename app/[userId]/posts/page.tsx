@@ -1,8 +1,10 @@
 "use client";
 import { useParams } from "next/navigation";
+
 type Params = {
   username: string;
 };
+
 const UserPostPage = () => {
   const params: Params = useParams();
 

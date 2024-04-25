@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     await connect();
     const posts = await Post.find({}).populate("author", ["username", "email"]).lean();
 
-    return Response.json({ success: true, posts });
+    return Response.json({ success: true, posts: posts.reverse() });
   } catch (error) {
     console.error(error);
     return Response.json({ success: false, error: "Cannot Find Posts" });
@@ -21,7 +21,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     connect();
-    const { title, content, tags, thumbnailUrl } = await req.json();
+    let { title, content, tags, thumbnailUrl } = await req.json();
     const headersList = headers();
     const authorization = headersList.get("authorization");
     if (!authorization) {
@@ -33,6 +33,7 @@ export async function POST(req: Request) {
       console.log(result);
       if (result) {
         const user = await User.findOne({ email: result.email }, "_id");
+        if (title === "?") title = "tckkct";
         const post = await Post.create({
           title,
           content,

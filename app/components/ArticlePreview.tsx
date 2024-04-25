@@ -32,7 +32,10 @@ const ArticlePreview = ({
   let difference = calculateCreatedTime(uploadTime);
 
   const postClick = () => {
-    router.push(`@${userId.split("@")[0]}/${title}`);
+    let dashedTitle = title.split(" ").join("-");
+    if (dashedTitle[dashedTitle.length - 1] === "?") dashedTitle = dashedTitle.slice(0, -1);
+    if (dashedTitle === "?") dashedTitle = "tckkct";
+    router.push(`@${userId.split("@")[0]}/${dashedTitle}`);
   };
 
   return (
@@ -50,7 +53,7 @@ const ArticlePreview = ({
         )}
         <div className={`${thumbnailURL ? "h-1/2" : "h-full"} flex flex-col justify-between`}>
           <div className="p-5">
-            <div className="font-bold">{title}</div>
+            <div className="font-bold">{title === "tckkct" ? "?" : title}</div>
             <p>{content.length > 50 ? `${content.slice(0, 50)}...` : content}</p>
           </div>
           <div className="p-5 text-gray-500 font-light text-sm">

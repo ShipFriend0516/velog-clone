@@ -27,7 +27,7 @@ export default function Home() {
   const getPosts = async () => {
     try {
       const response = await axios.get("/api/posts");
-      console.table(response);
+      console.table(response.data.posts);
       setPosts(response.data.posts);
     } catch (err) {
       console.error(err);
@@ -109,6 +109,7 @@ export default function Home() {
         </div>
       </div>
       <div className="article-grid p-4 lg:p-2">
+        {renderPosts()}
         <ArticlePreview
           key="1"
           title={"글 제목"}
@@ -174,7 +175,6 @@ export default function Home() {
           likes={10}
           thumbnailURL="https://img.freepik.com/premium-psd/3d-render-glassy-background-modern-glass-morphism-style_125452-3202.jpg?w=900"
         />
-        {renderPosts()}
       </div>
     </main>
   );

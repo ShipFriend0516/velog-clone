@@ -46,6 +46,25 @@ const PostPage = ({ params }: Params) => {
     getPost();
   }, [title, userId]);
 
+  // 글 삭제 요청
+  const deletePost = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = await axios.delete(`/api/posts/${userId}?title=${title}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (response.data.success) {
+        router.push("/");
+      } else {
+        // 삭제 불가능일 때
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // 업로드 시간 계산 함수
   const calculateCreatedTime = (uploadTime: number) => {
     const now = new Date().getTime();
@@ -80,7 +99,7 @@ const PostPage = ({ params }: Params) => {
         <div className="authorOptionsWrapper">
           <button>통계</button>
           <button>수정</button>
-          <button>삭제</button>
+          <button onClick={() => deletePost()}>삭제</button>
         </div>
         <div className="postInfoWrapper">
           <div>
