@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       },
       { username }
     );
-    console.log(exUser);
+
     if (exUser.length > 0) {
       return Response.json(
         { success: false, message: "이미 존재하는 이메일입니다." },
