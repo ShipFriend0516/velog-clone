@@ -1,8 +1,13 @@
+"use client";
 import Image from "next/image";
 import LoginModal from "../components/LoginModal";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useEffect } from "react";
 
 const TestPage = () => {
+  useEffect(() => {
+    console.log(process.env.DB_USER);
+  });
   return (
     <div className="flex justify-center items-center">
       <Image
