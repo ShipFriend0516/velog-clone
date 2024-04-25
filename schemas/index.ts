@@ -7,10 +7,13 @@ const connect = () => {
   if (process.env.NODE_ENV !== "production") {
     mongoose.set("debug", true);
   }
-  mongoose.connect(`mongodb://oracion:${process.env.DB_PW}@localhost:27017/?authSource=admin`, {
-    dbName: "velog",
-    autoIndex: true,
-  });
+  mongoose.connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.2kgti7a.mongodb.net/`,
+    {
+      dbName: "velog",
+      autoIndex: true,
+    }
+  );
 };
 
 mongoose.connection.on("error", (error) => {
