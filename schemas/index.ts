@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connect = async () => {
+const connect = () => {
   if (process.env.NODE_ENV !== "production") {
     mongoose.set("debug", true);
   }
-  await mongoose.connect(
+  mongoose.connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.2kgti7a.mongodb.net/`,
     {
       dbName: "velog",
@@ -15,6 +15,10 @@ const connect = async () => {
     }
   );
 };
+
+mongoose.connection.on("connected", () => {
+  console.log("Success to connect with database");
+});
 
 mongoose.connection.on("error", (error) => {
   console.error("MongoDB Connect Fail!", error);
