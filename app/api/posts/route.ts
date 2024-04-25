@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         return Response.json({ success: true, data: post });
       }
     } catch (error) {
-      return Response.json({ success: false, message: "로그인을 해주세요." });
+      return Response.json({ success: false, message: "로그인을 해주세요." }, { status: 401 });
     }
   } catch (error) {
     console.error(error);
