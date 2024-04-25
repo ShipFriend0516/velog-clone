@@ -3,11 +3,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connect = () => {
+const connect = async () => {
   if (process.env.NODE_ENV !== "production") {
     mongoose.set("debug", true);
   }
-  mongoose.connect(
+  await mongoose.connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.2kgti7a.mongodb.net/`,
     {
       dbName: "velog",

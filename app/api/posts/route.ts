@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 
 export async function GET(req: Request) {
   try {
-    connect();
+    await connect();
     const posts = await Post.find({}).populate("author", ["username", "email"]).lean();
 
     return Response.json({ success: true, posts });
