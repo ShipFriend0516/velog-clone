@@ -135,7 +135,7 @@ export default function Home() {
       </div>
       <div className="article-grid p-4 lg:p-2">
         {postLoading ? preRenderPosts() : renderPosts()}
-        <ArticlePreview
+        {/* <ArticlePreview
           key="1"
           title={"글 제목"}
           content={"글의 내용이 이렇게 보입니다."}
@@ -199,7 +199,7 @@ export default function Home() {
           userId={"멧도요"}
           likes={10}
           thumbnailURL="https://img.freepik.com/premium-psd/3d-render-glassy-background-modern-glass-morphism-style_125452-3202.jpg?w=900"
-        />
+        /> */}
       </div>
     </main>
   );
