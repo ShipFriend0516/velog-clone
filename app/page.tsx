@@ -51,6 +51,7 @@ export default function Home() {
             userName={post.author.username}
             userId={post.author.email}
             likes={post.likes || 0}
+            thumbnailURL={post.thumbnailUrl}
           />
         );
       });

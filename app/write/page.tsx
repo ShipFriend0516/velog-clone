@@ -54,9 +54,13 @@ const WritePage = () => {
     if ((e.code === "Comma" || e.code === "Enter") && tagInput) {
       e.preventDefault();
       if (tags.includes(tagInput.trim())) {
+        // 중복
       } else if (!e.nativeEvent.isComposing) {
-        setTags([...tags, tagInput.trim()]);
+        const tag = tagInput.slice();
+
+        setTags([...tags, tag.trim()]);
         setTagInput("");
+      } else if (!e.nativeEvent.isComposing && e.code === "Comma") {
       }
     } else if (e.code === "Backspace" && !tagInput) {
       setTags([...tags.slice(0, -1)]);
