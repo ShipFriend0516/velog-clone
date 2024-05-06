@@ -15,6 +15,7 @@ interface FilterStyle {
 export default function Home() {
   const sort = ["trend", "recent", "feed"];
   const [posts, setPosts] = useState<Post[]>();
+  const [postLoading, setPostLoading] = useState(true);
   const [selected, setSelected] = useState(0);
   const sortOnClick = (filter: number) => {
     setSelected(filter);
@@ -29,6 +30,7 @@ export default function Home() {
       const response = await axios.get("/api/posts");
       console.table(response.data.posts);
       setPosts(response.data.posts);
+      setPostLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -56,6 +58,28 @@ export default function Home() {
         );
       });
     }
+  };
+
+  const preRenderPosts = () => {
+    // 로딩 전 미리보기
+    return Array(20)
+      .fill(0)
+      .map((post, index) => {
+        console.log("미리보기 로딩");
+        return (
+          <ArticlePreview
+            key={index + ""}
+            title={""}
+            content={""}
+            uploadTime={0}
+            comments={0}
+            userName={""}
+            userId={""}
+            likes={post.likes || 0}
+            thumbnailURL={""}
+          />
+        );
+      });
   };
 
   return (
@@ -110,7 +134,7 @@ export default function Home() {
         </div>
       </div>
       <div className="article-grid p-4 lg:p-2">
-        {renderPosts()}
+        {postLoading ? preRenderPosts() : renderPosts()}
         <ArticlePreview
           key="1"
           title={"글 제목"}

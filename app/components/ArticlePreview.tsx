@@ -28,6 +28,11 @@ const ArticlePreview = ({
   thumbnailURL,
 }: ArticlePreview) => {
   const router = useRouter();
+  let isInvalid = false;
+  if (uploadTime === 0) {
+    // 업로드 시간이 0일땐 미리보기 렌더링
+    isInvalid = true;
+  }
 
   let difference = calculateCreatedTime(uploadTime);
 
@@ -38,7 +43,41 @@ const ArticlePreview = ({
     router.push(`@${userId.split("@")[0]}/${dashedTitle}`);
   };
 
-  return (
+  const preloadingRender = () => {
+    return (
+      <div className="article-preview w-full flex-nowrap shadow-xl rounded-sm flex flex-col justify-between hover:translate-y-0 md:hover:-translate-y-3  md:hover:shadow-2xl transition cursor-pointer animate-pulse">
+        <div className="flex flex-col justify-between flex-grow overflow-hidden">
+          <div className="bg-gray-300  h-1/2"></div>
+          <div className={`${"h-1/2"} flex flex-col justify-between`}>
+            <div className="p-5">
+              <div className="h-4 font-bold text-transparent bg-gray-300 rounded-md">
+                로딩되기 전의 글 제목
+              </div>
+              <p className="h-2 w-1/3 text-gray-300 bg-gray-300 rounded-md mt-1"></p>
+              <p className="h-2 w-1/2 text-gray-300 bg-gray-300 rounded-md mt-1"></p>
+              <p className="h-2 w-3/4 text-gray-300 bg-gray-300 rounded-md mt-1"></p>
+            </div>
+            <div className="p-5 text-transparent font-light text-sm">
+              <span className="h-3/5 bg-gray-300 rounded-md">{difference}</span> •{" "}
+              <span className="h-3/5 bg-gray-300 rounded-md">{comments}개의 댓글</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-4 py-2 border-t flex justify-between">
+          <div className="inline-flex items-center gap-1">
+            <span className="rounded-full overflow-hidden bg-gray-300 w-5 h-5"></span>
+            <span className="font-light text-transparent w-32 h-3  bg-gray-300 rounded-md"> </span>
+          </div>
+          <div className="inline-flex items-center gap-1"></div>
+        </div>
+      </div>
+    );
+  };
+
+  return isInvalid ? (
+    preloadingRender()
+  ) : (
     <div className="article-preview w-full flex-nowrap shadow-xl rounded-sm flex flex-col justify-between hover:translate-y-0 md:hover:-translate-y-3  md:hover:shadow-2xl transition cursor-pointer">
       <div className="flex flex-col justify-between flex-grow overflow-hidden" onClick={postClick}>
         {thumbnailURL && (
