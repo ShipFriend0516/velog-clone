@@ -209,12 +209,20 @@ const WritePage = () => {
             </button>
           </div>
           <textarea
-            className="italic text-lg contentArea"
+            className=" italic text-lg contentArea h-full"
             placeholder="당신의 이야기를 적어보세요..."
             id="contentBody"
             name="content"
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
           ></textarea>
+          <div className="CodeMirror">
+            {/* 글쓰는게 보이는 곳 */}
+            {content.split("\n").map((line, index) => (
+              <pre key={index}>{line}</pre>
+            ))}
+          </div>
         </div>
         <div className="writeFooter h-20 p-4 bg-white inline-flex justify-between items-center">
           <button
@@ -241,7 +249,13 @@ const WritePage = () => {
           </div>
         </div>
       </form>
-      <div className="bg-gray-50 mdPreview hidden lg:w-1/2 lg:flex"></div>
+      <div className="bg-gray-50 mdPreview hidden lg:w-1/2 lg:flex p-20 flex-col gap-2">
+        {/* 글쓰는게 보이는 곳 */}
+        <h2 className="text-3xl">{title}</h2>
+        {content.split("\n").map((line, index) => (
+          <pre key={index}>{line}</pre>
+        ))}
+      </div>
     </section>
   );
 };
