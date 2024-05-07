@@ -4,12 +4,18 @@ import { PostType } from "../../../schemas/Post";
 import { headers } from "next/headers";
 import type { NextApiRequest, NextApiResponse } from "next";
 import User from "@/schemas/User";
+import Comment from "@/schemas/Comment";
 const jwt = require("jsonwebtoken");
 
 export async function GET(req: Request) {
   try {
     await connect();
     const posts = await Post.find({}).populate("author", ["username", "email"]).lean();
+
+    for (const post of posts) {
+      const commentCount = await Comment.countDocuments({ post_id: post._id });
+      post.comments = commentCount;
+    }
 
     return Response.json({ success: true, posts: posts.reverse() });
   } catch (error) {

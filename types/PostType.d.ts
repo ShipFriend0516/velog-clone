@@ -7,6 +7,7 @@ export default interface PostType {
     email: string;
   };
   likes: number;
+  comments?: number;
   tags?: string[];
   thumbnailUrl?: string;
   createdAt: number;

@@ -4,7 +4,6 @@ import { FaHeart } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 
 type ArticlePreview = {
-  key: string;
   title: string;
   content: string;
   uploadTime: number;
@@ -16,7 +15,6 @@ type ArticlePreview = {
   thumbnailURL?: string;
 };
 const ArticlePreview = ({
-  key,
   title,
   content,
   uploadTime,

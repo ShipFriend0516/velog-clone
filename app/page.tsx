@@ -30,6 +30,7 @@ export default function Home() {
       const response = await axios.get("/api/posts");
       setPosts(response.data.posts);
       setPostLoading(false);
+      console.log(response.data.posts);
     } catch (err) {
       console.error(err);
     }
@@ -48,7 +49,7 @@ export default function Home() {
             title={post.title}
             content={post.content}
             uploadTime={new Date(post.updatedAt).getTime()}
-            comments={0}
+            comments={post.comments || 0}
             userName={post.author.username}
             userId={post.author.email}
             likes={post.likes || 0}
@@ -66,7 +67,7 @@ export default function Home() {
       .map((post, index) => {
         return (
           <ArticlePreview
-            key={index + ""}
+            key={index.toString()}
             title={""}
             content={""}
             uploadTime={0}
