@@ -124,11 +124,11 @@ const calculateCreatedTime = (uploadTime: number) => {
   if (difference >= 60) {
     difference /= 60;
     postfix = "분 전";
-    if (difference >= 24) {
-      difference /= 24;
+    if (difference >= 60) {
+      difference /= 60;
       postfix = "시간 전";
-      if (difference >= 30) {
-        difference /= 30;
+      if (difference >= 24) {
+        difference /= 24;
         postfix = "일 전";
         if (difference >= 30) {
           difference = null;
