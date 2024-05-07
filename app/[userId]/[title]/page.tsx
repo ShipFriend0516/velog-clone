@@ -3,7 +3,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Post from "../../../types/PostType.d";
+import CommentType from "@/types/CommentType";
 import NotFound from "@/app/not-found";
+import Comment from "@/app/components/Comment";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
 
 type Params = {
   params: {
@@ -19,6 +22,12 @@ const PostPage = ({ params }: Params) => {
   // 글 상태
   const [post, setPost] = useState<Post>();
   const [postLoading, setPostLoading] = useState(true);
+
+  // 댓글 상태
+  const [comments, setComments] = useState<CommentType[]>();
+  const [commentLoading, setCommentLoading] = useState(true);
+  const [comment, setComment] = useState("");
+
   // 유저의 모든 글 모아보기
   // const getPost = async () => {
   //   const response = await axios.get(`/api/posts/${userId}?title=${title}`);
@@ -31,7 +40,6 @@ const PostPage = ({ params }: Params) => {
         title,
       });
       setPost(response.data.post);
-      console.log(response.data.post);
     } catch (err) {
       // 에러처리
       if (axios.isAxiosError(err) && err.response!.status === 404) {
@@ -64,6 +72,62 @@ const PostPage = ({ params }: Params) => {
       console.error(err);
     }
   };
+
+  // 댓글 관련
+  const postComment = async () => {
+    try {
+      if (post) {
+        const response = await axios.post(
+          "/api/comments",
+          {
+            post_id: post._id,
+            content: comment,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        );
+        setComment("");
+
+        console.log("댓글 작성 결과", response);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      getComments();
+    }
+  };
+
+  const getComments = async () => {
+    try {
+      if (post) {
+        const response = await axios.get(`/api/comments/${post._id}`);
+        setComments(response.data.comments);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const renderComments = () => {
+    if (comments) {
+      return comments.map((comment) => (
+        <Comment
+          key={comment._id}
+          username={comment.commentAuthor.username}
+          comment={comment.content}
+          createdAt={new Date(comment.createdAt).getTime()}
+        />
+      ));
+    }
+  };
+
+  useEffect(() => {
+    getComments();
+    setCommentLoading(false);
+  }, [title, post]);
 
   // 업로드 시간 계산 함수
   const calculateCreatedTime = (uploadTime: number) => {
@@ -131,13 +195,21 @@ const PostPage = ({ params }: Params) => {
           <button>이메일</button>
         </div>
         <div className="commentsWrapper flex flex-col gap-3">
-          <div>{0}개의 댓글</div>
+          <div>{comments?.length || 0}개의 댓글</div>
           <div>
-            <textarea className="border p-4 w-full" placeholder="댓글을 작성하세요." />
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="border p-4 w-full"
+              placeholder="댓글을 작성하세요."
+            />
           </div>
           <div className="flex justify-end">
-            <button className="greenBtn">댓글 작성</button>
+            <button className="greenBtn" onClick={postComment}>
+              댓글 작성
+            </button>
           </div>
+          {commentLoading ? <LoadingSpinner /> : renderComments()}
         </div>
         <div className="relateWrapper">
           <div className="flex justify-center">

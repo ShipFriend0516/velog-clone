@@ -28,7 +28,6 @@ export default function Home() {
   const getPosts = async () => {
     try {
       const response = await axios.get("/api/posts");
-      console.table(response.data.posts);
       setPosts(response.data.posts);
       setPostLoading(false);
     } catch (err) {
@@ -65,7 +64,6 @@ export default function Home() {
     return Array(20)
       .fill(0)
       .map((post, index) => {
-        console.log("미리보기 로딩");
         return (
           <ArticlePreview
             key={index + ""}
