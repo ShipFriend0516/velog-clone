@@ -4,7 +4,7 @@ import { PiMoonBold } from "react-icons/pi";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
-
+import { useRouter } from "next/navigation";
 interface UserType {
   _id: string;
   snsId: string;
@@ -15,14 +15,19 @@ interface UserType {
 }
 
 const SettingPage = () => {
+  const router = useRouter();
   const [userdata, setUserdata] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
 
   const getUserData = async () => {
     try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        router.push("/");
+      }
       const response = await axios.get("/auth/user", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
       console.log(response);
@@ -30,6 +35,7 @@ const SettingPage = () => {
       setUserLoading(false);
     } catch (err) {
       console.error(err);
+      router.push("/");
     }
   };
 
