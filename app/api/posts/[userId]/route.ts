@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import * as url from "url";
 const jwt = require("jsonwebtoken");
 
+// 하나의 유저의 모든 글을 조회
 export async function GET(req: Request) {
   const email = url.parse(req.url, true).pathname?.split("/").pop();
   const user = await User.findOne({ email: { $regex: email?.slice(3) } }, "_id");
