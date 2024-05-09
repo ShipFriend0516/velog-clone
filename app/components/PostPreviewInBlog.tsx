@@ -78,7 +78,7 @@ const PostPreviewInBlog = ({
       <Link href={`/@${userId.slice(3)}/${title.split(" ").join("-")}`}>
         <h2 className="cursor-pointer font-bold text-2xl">{title}</h2>
       </Link>
-      <p className="">{content}</p>
+      <p className="">{content.length > 100 ? content.slice(0, 100) : content}</p>
       <div className="tagsWrapper">
         {tags?.map((tag) => (
           <div key={tag}>{tag}</div>

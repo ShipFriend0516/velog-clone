@@ -21,7 +21,7 @@ export async function GET(req: Request) {
 
     console.log(`유저 이메일: ${email} 유저: ${userId}`);
     const posts = await Post.find({ author: user._id }).lean();
-    return Response.json({ posts: posts });
+    return Response.json({ posts: posts.reverse() });
   } catch (error) {
     console.error(error);
     return Response.json({}, { status: 400 });

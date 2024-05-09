@@ -91,7 +91,7 @@ const ArticlePreview = ({
         <div className={`${thumbnailURL ? "h-1/2" : "h-full"} flex flex-col justify-between`}>
           <div className="p-5">
             <div className="font-bold">{title === "tckkct" ? "?" : title}</div>
-            <p>{content.length > 75 ? `${content.slice(0, 75)}...` : content}</p>
+            <p>{content.length > 42 ? `${content.slice(0, 42)}...` : content}</p>
           </div>
           <div className="p-5 text-gray-500 font-light text-sm">
             <span>{difference}</span> • <span>{comments}개의 댓글</span>
