@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { calculateCreatedTime } from "../[userId]/[title]/page";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import calculateCreatedTime from "../function/calculateCreatedTime";
 
 interface PostPreview {
   userId: string;
