@@ -41,6 +41,7 @@ const UserPostPage = () => {
       return posts.map((post) => (
         <PostPreviewInBlog
           key={post._id}
+          userId={userId}
           title={post.title}
           content={post.content}
           tags={post.tags}
@@ -60,9 +61,10 @@ const UserPostPage = () => {
         return (
           <PostPreviewInBlog
             key={i}
+            userId={""}
             title={""}
             content={""}
-            tags={["", ""]}
+            tags={[""]}
             uploadTime={0}
             likes={0}
             comments={0}

@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { calculateCreatedTime } from "../[userId]/[title]/page";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface PostPreview {
+  userId: string;
   title: string;
   content: string;
   uploadTime: number;
@@ -12,6 +15,7 @@ interface PostPreview {
 }
 
 const PostPreviewInBlog = ({
+  userId,
   title,
   content,
   uploadTime,
@@ -20,10 +24,18 @@ const PostPreviewInBlog = ({
   likes,
   thumbnailUrl,
 }: PostPreview) => {
+  const router = useRouter();
   let isInvalid = false;
   if (uploadTime === 0) {
     isInvalid = true;
   }
+
+  const postClick = () => {
+    let dashedTitle = title.split(" ").join("-");
+    if (dashedTitle[dashedTitle.length - 1] === "?") dashedTitle = dashedTitle.slice(0, -1);
+    if (dashedTitle === "?") dashedTitle = "tckkct";
+    router.replace(`@${userId.split("@")[0]}/${dashedTitle}`);
+  };
 
   const preloadingRender = () => {
     return (
@@ -56,10 +68,16 @@ const PostPreviewInBlog = ({
     preloadingRender()
   ) : (
     <div className="pt-4 pb-8 w-full flex flex-col gap-4 border-b">
-      <div className=" cursor-pointer w-full aspect-video h-1/2 bg-gray-300 flex justify-center items-center overflow-hidden">
+      <Link
+        href={`/@${userId.slice(3)}/${title.split(" ").join("-")}`}
+        className=" cursor-pointer w-full aspect-video h-1/2 bg-gray-300 flex justify-center items-center overflow-hidden"
+        onClick={postClick}
+      >
         {thumbnailUrl && <Image src={thumbnailUrl} alt="thumbnail" width={1000} height={600} />}
-      </div>
-      <h2 className="cursor-pointer font-bold text-2xl">{title}</h2>
+      </Link>
+      <Link href={`/@${userId.slice(3)}/${title.split(" ").join("-")}`}>
+        <h2 className="cursor-pointer font-bold text-2xl">{title}</h2>
+      </Link>
       <p className="">{content}</p>
       <div className="tagsWrapper">
         {tags?.map((tag) => (
