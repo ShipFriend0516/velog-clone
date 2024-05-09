@@ -12,9 +12,7 @@ export async function POST(req: Request) {
     if (result) {
       // 비밀번호 일치하면
       console.log(`POST 200 ${email} 유저의 로그인 성공`);
-      const token = jwt.sign({ email }, process.env.TOKEN_SECRET, {
-        expiresIn: process.env.TOKEN_EXPIRES,
-      });
+      const token = jwt.sign({ email }, process.env.TOKEN_SECRET);
       console.log("발급된 토큰", token);
       return Response.json({
         success: true,
