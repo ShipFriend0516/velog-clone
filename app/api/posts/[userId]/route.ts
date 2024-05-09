@@ -7,11 +7,25 @@ const jwt = require("jsonwebtoken");
 
 // 하나의 유저의 모든 글을 조회
 export async function GET(req: Request) {
-  const email = url.parse(req.url, true).pathname?.split("/").pop();
-  const user = await User.findOne({ email: { $regex: email?.slice(3) } }, "_id");
-  const posts = await Post.find({ author: user._id });
+  try {
+    connect();
+    const email = url.parse(req.url, true).pathname?.split("/").pop();
+    if (!email) return Response.json({ message: "이메일 없음" }, { status: 400 });
+    const userId = email!.slice(3);
+    const user = await User.findOne({
+      email: {
+        $regex: userId,
+        $options: "i",
+      },
+    });
 
-  return Response.json({ posts: posts });
+    console.log(`유저 이메일: ${email} 유저: ${userId}`);
+    const posts = await Post.find({ author: user._id }).lean();
+    return Response.json({ posts: posts });
+  } catch (error) {
+    console.error(error);
+    return Response.json({}, { status: 400 });
+  }
 }
 
 export async function POST(req: Request) {

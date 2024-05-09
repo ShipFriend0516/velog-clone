@@ -18,7 +18,12 @@ export async function POST(req: Request) {
       console.log("발급된 토큰", token);
       return Response.json({
         success: true,
-        currentUser: { accessToken: token, id: user._id, username: user.username }
+        currentUser: {
+          accessToken: token,
+          id: user._id,
+          username: user.username,
+          email: user.email,
+        },
       });
     } else {
       return Response.json({ success: false, message: "잘못된 비밀번호입니다." }, { status: 400 });

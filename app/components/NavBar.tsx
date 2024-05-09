@@ -143,7 +143,9 @@ const NavBar = () => {
                 </svg>
                 {isDropdownOpen && (
                   <div ref={dropdownRef} className="dropdown shadow-lg">
-                    <Link href={"/@user/posts"}>내 블로그</Link>
+                    <Link href={`/@${localStorage.getItem("email")?.split("@")[0]}/posts`}>
+                      내 블로그
+                    </Link>
                     <Link href={"/saves"}>임시 글</Link>
                     <Link href={"/lists"}>읽기 목록</Link>
                     <Link href={"/setting"}>설정</Link>
