@@ -12,14 +12,27 @@ type Params = {
   userId: string;
 };
 
+interface Author {
+  _id: string;
+  username: string;
+  profileThumbnailUrl?: string;
+  introduction?: string;
+}
+
 const UserPostPage = () => {
   const params: Params = useParams();
 
   const { userId } = params;
 
+  // 글 상태
   const [posts, setPosts] = useState<PostType[]>();
   const [postsLoading, setPostsLoading] = useState(true);
 
+  // 유저 상태
+  const [author, setAuthor] = useState<Author>();
+  const [authorLoading, setAuthorLoading] = useState(true);
+
+  // 유저의 글을 모두 조회
   const getUserPosts = async () => {
     try {
       const response = await axios.get(`/api/posts/${userId}`);
@@ -32,8 +45,23 @@ const UserPostPage = () => {
     }
   };
 
+  // 블로그 주인 정보 조회
+  const getAuthor = async () => {
+    try {
+      const response = await axios.post("/auth/user", {
+        userId: userId,
+      });
+
+      setAuthor(response.data.userdata);
+      setAuthorLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getUserPosts();
+    getAuthor();
   }, []);
 
   const renderPosts = () => {
@@ -79,8 +107,10 @@ const UserPostPage = () => {
       <div className="profileWrapper flex items-center gap-4">
         <div className="rounded-full w-32 h-32 overflow-hidden bg-gray-300"></div>
         <div>
-          <div className="text-2xl">유저이름</div>
-          <div>한마디</div>
+          <div className="text-2xl">
+            {authorLoading ? <span className="animate-pulse">...</span> : author?.username}
+          </div>
+          <div>{!authorLoading && author?.introduction}</div>
         </div>
       </div>
       <hr />

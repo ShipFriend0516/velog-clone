@@ -1,8 +1,10 @@
 import connect from "@/schemas";
 import User from "@/schemas/User";
+import { request } from "http";
 import { headers } from "next/headers";
 const jwt = require("jsonwebtoken");
 
+// 인증 필요, 중요 개인정보 포함
 export async function GET() {
   try {
     const header = headers();
@@ -29,6 +31,29 @@ export async function GET() {
   } catch (error) {
     console.error(error);
     return Response.json({ status: 401 });
+  }
+}
+
+// 인증 미필요, 중요정보 미포함
+export async function POST(req: Request) {
+  try {
+    const { userId } = await req.json();
+
+    const slicedUserId = userId.slice(3);
+
+    const user = await User.findOne(
+      {
+        email: {
+          $regex: slicedUserId,
+          $options: "i",
+        },
+      },
+      ["username", "introduction", "profileThumbnailUrl"]
+    );
+    return Response.json({ userdata: user });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ status: 400 });
   }
 }
 

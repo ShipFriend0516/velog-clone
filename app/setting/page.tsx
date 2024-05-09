@@ -59,7 +59,7 @@ const SettingPage = () => {
         </div>
         <div className="flex-grow p-5 ">
           <h2 className="text-3xl font-bold mb-3">{userdata!.username}</h2>
-          <p className="mb-3 text-gray-400">간단소개</p>
+          <p className="mb-3 text-gray-400">{userdata!.introduction}</p>
           <button className="underline text-emerald-400">수정</button>
         </div>
       </div>
