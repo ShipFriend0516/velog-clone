@@ -6,6 +6,7 @@ export default interface CommentType {
     _id: string;
     username: string;
     thumbnailUrl?: string;
+    email: string;
   };
   likes: number;
   createdAt: Date;

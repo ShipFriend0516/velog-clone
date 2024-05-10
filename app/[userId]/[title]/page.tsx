@@ -9,6 +9,7 @@ import Comment from "@/app/components/Comment";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
 import { FaGithub } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
+import Link from "next/link";
 
 type Params = {
   params: {
@@ -123,6 +124,7 @@ const PostPage = ({ params }: Params) => {
         <Comment
           key={comment._id}
           _id={comment._id}
+          email={comment.commentAuthor.email.split('@')[0]}
           username={comment.commentAuthor.username}
           comment={comment.content}
           createdAt={new Date(comment.createdAt).getTime()}
@@ -214,13 +216,16 @@ const PostPage = ({ params }: Params) => {
         <article className="py-5">{post.content}</article>
         <div className="profileWrapper">
           <div className="flex items-center gap-3">
-            <div className="profile w-20 h-20 rounded-full bg-gray-100"></div>
+            <Link href={`/@${userId.slice(3)}/posts`}>
+              <div className="profile w-20 h-20 rounded-full bg-gray-100"></div>
+            </Link>
             <div>
-              <div className="text-xl">{decodeURIComponent(post.author.username)}</div>
+              <Link href={`/@${userId.slice(3)}/posts`} className="text-xl">
+                {decodeURIComponent(post.author.username)}
+              </Link>
               <p>유저의 소개</p>
             </div>
           </div>
-
           <hr className="my-3" />
           <button className="text-3xl mr-1">
             <FaGithub />
