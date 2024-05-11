@@ -503,6 +503,50 @@ textarea {
   border-radius: 8px;
 }
 
+.likeBtnWrapperFlow {
+  position: relative;
+  width: 100%;
+  height: 10px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.likeBtnWrapper {
+  position: absolute;
+  left: -7rem;
+}
+
+.like-share {
+  width: 4rem;
+  background-color: #f8f9fa;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.like-share > button {
+  border-radius: 100%;
+  background: white;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+
+  &:hover {
+    color: black;
+    border: 1px solid gray;
+  }
+}
+
 /* 공통 요소 */
 
 .whiteBtn {

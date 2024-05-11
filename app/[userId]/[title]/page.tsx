@@ -7,7 +7,8 @@ import CommentType from "@/types/CommentType";
 import NotFound from "@/app/not-found";
 import Comment from "@/app/components/Comment";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaHeart, FaRegHeart } from "react-icons/fa";
+import { MdShare } from "react-icons/md";
 import { CiMail } from "react-icons/ci";
 import Link from "next/link";
 
@@ -124,7 +125,7 @@ const PostPage = ({ params }: Params) => {
         <Comment
           key={comment._id}
           _id={comment._id}
-          email={comment.commentAuthor.email.split('@')[0]}
+          email={comment.commentAuthor.email.split("@")[0]}
           username={comment.commentAuthor.username}
           comment={comment.content}
           createdAt={new Date(comment.createdAt).getTime()}
@@ -182,9 +183,8 @@ const PostPage = ({ params }: Params) => {
   return (
     !postLoading &&
     (post !== undefined ? (
-      <section className="overflow-y-scroll flex flex-col mx-auto max-w-3xl p-4 gap-6">
+      <section className="flex flex-col mx-auto max-w-3xl p-4 gap-6 relative">
         <h1 className="text-4xl font-bold">{decodeURIComponent(post.title)}</h1>
-
         <div className="postInfoWrapper mt-4">
           <div>
             <span className="font-bold">{decodeURIComponent(post.author.username)}</span> •{" "}
@@ -202,6 +202,19 @@ const PostPage = ({ params }: Params) => {
                 <button>팔로우</button>
               </div>
             )}
+          </div>
+        </div>
+        <div className="likeBtnWrapperFlow">
+          <div className="likeBtnWrapper">
+            <div className="like-share">
+              <button className="likeBtn">
+                <FaRegHeart />
+              </button>
+              <div className="my-1 text-sm font-bold">{0}</div>
+              <button className="shareBtn">
+                <MdShare />
+              </button>
+            </div>
           </div>
         </div>
         <div className="tagsWrapper">
