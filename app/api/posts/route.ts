@@ -7,6 +7,7 @@ import User from "@/schemas/User";
 import Comment from "@/schemas/Comment";
 const jwt = require("jsonwebtoken");
 
+// GET /api/posts - 모든 글 조회
 export async function GET(req: Request) {
   try {
     await connect();
@@ -24,6 +25,7 @@ export async function GET(req: Request) {
   }
 }
 
+// POST /api/posts - 글 작성 API
 export async function POST(req: Request) {
   try {
     connect();

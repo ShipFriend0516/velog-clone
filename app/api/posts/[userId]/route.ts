@@ -1,4 +1,5 @@
 import connect from "@/schemas";
+import Like from "@/schemas/Like";
 import Post from "@/schemas/Post";
 import User from "@/schemas/User";
 import { headers } from "next/headers";
@@ -28,19 +29,34 @@ export async function GET(req: Request) {
   }
 }
 
+// POST /api/posts/[userId] - 글 1개 조회
 export async function POST(req: Request) {
-  const { title } = await req.json();
+  const { title, userId } = await req.json();
   let undashedTitle = title.split("-").join(" ");
-  const post = await Post.findOne({ title: decodeURIComponent(undashedTitle) })
-    .populate("author", "username")
-    .lean();
+  const post = await Post.findOne({ title: decodeURIComponent(undashedTitle) }).populate(
+    "author",
+    "username"
+  );
+  const post_id = post._id;
+
   if (post) {
-    return Response.json({ success: "true", post: post });
+    const likesCount = await Like.countDocuments({ post_id: post_id });
+    if (userId) {
+      const isLiked = await Like.exists({ post_id: post_id, user_id: userId });
+      return Response.json({
+        success: "true",
+        post: post,
+        likesCount: likesCount,
+        isLiked: isLiked,
+      });
+    }
+    return Response.json({ success: "true", post: post, likesCount: likesCount, isLiked: false });
   } else {
     return Response.json({ success: "false" }, { status: 404 });
   }
 }
 
+// DELETE /api/posts/[userId] - 1개의 글 삭제
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);

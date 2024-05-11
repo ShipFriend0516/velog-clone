@@ -35,19 +35,20 @@ const PostPage = ({ params }: Params) => {
   // 유저 상태
   const [isOwner, setIsOwner] = useState(false);
 
-  // 유저의 모든 글 모아보기
-  // const getPost = async () => {
-  //   const response = await axios.get(`/api/posts/${userId}?title=${title}`);
-  //   console.log(response);
-  // };
+  // 좋아요 상태
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
 
   const getPost = async () => {
     try {
       const response = await axios.post(`/api/posts/${userId}`, {
         title,
+        userId: localStorage.getItem("userId"),
       });
       setPost(response.data.post);
       setIsOwner(response.data.post.author._id === localStorage.getItem("userId"));
+      setLikesCount(response.data.likesCount);
+      setIsLiked(response.data.isLiked);
     } catch (err) {
       // 에러처리
       if (axios.isAxiosError(err) && err.response!.status === 404) {
@@ -82,6 +83,7 @@ const PostPage = ({ params }: Params) => {
   };
 
   // 댓글 관련
+  // 댓글 작성
   const postComment = async () => {
     try {
       if (post) {
@@ -108,6 +110,7 @@ const PostPage = ({ params }: Params) => {
     }
   };
 
+  // 댓글 조회
   const getComments = async () => {
     try {
       if (post) {
@@ -119,6 +122,7 @@ const PostPage = ({ params }: Params) => {
     }
   };
 
+  // 댓글 렌더링
   const renderComments = () => {
     if (comments) {
       return comments.map((comment) => (
@@ -135,6 +139,7 @@ const PostPage = ({ params }: Params) => {
     }
   };
 
+  // 댓글 삭제
   const deleteComment = async (id: string) => {
     try {
       const response = await axios.delete(`/api/comments?id=${id}`, {
@@ -180,6 +185,23 @@ const PostPage = ({ params }: Params) => {
     return `${Math.floor(difference)}${postfix}`;
   };
 
+  // 좋아요 누르기
+  const postLike = async () => {
+    try {
+      if (post) {
+        const response = await axios.post("/api/posts/like", {
+          post_id: post._id,
+          user_id: localStorage.getItem("userId"),
+        });
+
+        setIsLiked(response.data.isLike);
+        setLikesCount(response.data.likesCount);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     !postLoading &&
     (post !== undefined ? (
@@ -207,10 +229,10 @@ const PostPage = ({ params }: Params) => {
         <div className="likeBtnWrapperFlow">
           <div className="likeBtnWrapper">
             <div className="like-share">
-              <button className="likeBtn">
-                <FaRegHeart />
+              <button className="likeBtn" onClick={postLike}>
+                {isLiked ? <FaHeart /> : <FaRegHeart />}
               </button>
-              <div className="my-1 text-sm font-bold">{0}</div>
+              <div className="my-1 text-sm font-bold">{likesCount || 0}</div>
               <button className="shareBtn">
                 <MdShare />
               </button>
