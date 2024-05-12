@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import type { NextApiRequest, NextApiResponse } from "next";
 import User from "@/schemas/User";
 import Comment from "@/schemas/Comment";
+import Like from "@/schemas/Like";
 const jwt = require("jsonwebtoken");
 
 // GET /api/posts - 모든 글 조회
@@ -15,7 +16,9 @@ export async function GET(req: Request) {
 
     for (const post of posts) {
       const commentCount = await Comment.countDocuments({ post_id: post._id });
+      const likesCount = await Like.countDocuments({ post_id: post._id });
       post.comments = commentCount;
+      post.likes = likesCount;
     }
 
     return Response.json({ success: true, posts: posts.reverse() });
