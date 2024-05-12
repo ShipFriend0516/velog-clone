@@ -1,7 +1,10 @@
 "use client";
 import Image from "next/image";
 import PostType from "../../types/PostType.d";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { SeriesType } from "../../types/SeriesType.d";
+import LoadingSpinner from "./LoadingSpinner";
 
 interface BeforeUploadPost {
   post: {
@@ -12,14 +15,18 @@ interface BeforeUploadPost {
   };
   close: () => void;
   uploadPost: () => void;
+  setSeriesId: (id: string) => void;
 }
 
-const PostUploadConfirm = ({ post, close, uploadPost }: BeforeUploadPost) => {
+const PostUploadConfirm = ({ post, close, uploadPost, setSeriesId }: BeforeUploadPost) => {
   const [isPublic, setIsPublic] = useState(true);
   const [openSeries, setOpenSeries] = useState(false);
   const [thumbnail, setThumbnail] = useState(post.thumbnailUrl);
   const [isClose, setIsClose] = useState(false);
-  const [series, setSeries] = useState("");
+  const [name, setName] = useState("");
+  const [series, setSeries] = useState<SeriesType[]>();
+  const [seriesLoading, setSeriesLoading] = useState(true);
+  const [selectedSeries, setSelectedSeries] = useState("");
 
   const { title, content, thumbnailUrl, tags } = post;
   const animationClose = () => {
@@ -36,6 +43,70 @@ const PostUploadConfirm = ({ post, close, uploadPost }: BeforeUploadPost) => {
   const uploadThumbnailHandler = async () => {
     console.log("dd");
   };
+
+  // 시리즈 관련
+
+  const postSeries = async () => {
+    try {
+      const response = await axios.post("/api/series", {
+        name: name,
+        description: "",
+        userId: localStorage.getItem("userId"),
+      });
+
+      console.log(response);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      getSeries();
+    }
+  };
+
+  const getSeries = async () => {
+    try {
+      const response = await axios.get("/api/series", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+      console.log(response);
+      setSeries(response.data.series);
+      setSeriesLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const renderSeries = () => {
+    if (series) {
+      return series.map((s) => {
+        return (
+          <li
+            onClick={() => {
+              setSelectedSeries(s._id);
+              setSeriesId(s._id);
+            }}
+            key={s._id}
+            className={`w-full py-3 px-4 border-b border-gray-300 ${
+              selectedSeries === s._id ? "selectedSeries" : ""
+            }`}
+          >
+            {s.name}
+          </li>
+        );
+      });
+    }
+  };
+
+  const selectSeries = () => {
+    if (selectedSeries) {
+      setOpenSeries(false);
+    }
+  };
+
+  useEffect(() => {
+    getSeries();
+  }, []);
 
   return (
     <section
@@ -88,11 +159,24 @@ const PostUploadConfirm = ({ post, close, uploadPost }: BeforeUploadPost) => {
                   <input
                     className="h-8 w-full p-2 text-sm rounded-sm border-none outline-none shadow-sm"
                     placeholder="새로운 시리즈의 이름을 입력하세요"
+                    onKeyDown={(e) => {
+                      if (e.code === "Enter" && !e.nativeEvent.isComposing) {
+                        e.preventDefault();
+                        postSeries();
+                      }
+                    }}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </form>
               </div>
               <ul className="w-full overflow-y-auto list-none m-0 bg-white">
-                <li className="w-full py-3 px-4 border-b border-gray-300">새로운 시리즈 이름</li>
+                {seriesLoading ? (
+                  <li className="w-full py-3 px-4 border-b border-gray-300 animate-purse text-center">
+                    . . .
+                  </li>
+                ) : (
+                  renderSeries()
+                )}
               </ul>
             </div>
           ) : (
@@ -155,8 +239,10 @@ const PostUploadConfirm = ({ post, close, uploadPost }: BeforeUploadPost) => {
               취소
             </button>
             <button
-              className="greenBtn w-28 h-8"
-              onClick={() => (openSeries ? setSeries("") : uploadPost())}
+              className={` w-28 h-8 ${
+                openSeries && !selectedSeries ? "bg-gray-400 rounded text-white" : "greenBtn"
+              }`}
+              onClick={() => (openSeries && selectedSeries ? selectSeries() : uploadPost())}
             >
               {openSeries ? "선택하기" : "출간하기"}
             </button>

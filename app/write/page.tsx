@@ -14,6 +14,9 @@ const WritePage = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
 
+  // 시리즈
+  const [series, setSeries] = useState("");
+
   const uploadPost = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -24,6 +27,7 @@ const WritePage = () => {
           content: content,
           thumbnailUrl: thumbnailUrl,
           tags: tags,
+          series_id: series,
         },
         {
           headers: {
@@ -74,6 +78,7 @@ const WritePage = () => {
           post={{ title: title, content: content, thumbnailUrl: thumbnailUrl, tags: tags }}
           close={close}
           uploadPost={uploadPost}
+          setSeriesId={setSeries}
         />
       )}
       <form className="mdWriter lg:w-1/2 flex flex-col justify-between overflow-hidden">

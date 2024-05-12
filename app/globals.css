@@ -208,6 +208,11 @@ textarea {
   width: 768px;
 }
 
+.selectedSeries {
+  background-color: var(--primary1);
+  color: white;
+}
+
 .separate-line {
   width: 1px;
   min-height: 425px;

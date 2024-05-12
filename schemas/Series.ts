@@ -1,40 +1,22 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface SeriesType extends Document {
-  username: string;
-  snsId: string;
-  email: string;
-  password: string;
-  profileThumbnailUrl?: string;
-  introduction?: string;
+  name: string;
+  description: string;
+  user_id: mongoose.Types.ObjectId;
+  post_id: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const seriesSchema: Schema = new Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  snsId: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  profileThumbnailUrl: {
-    type: String,
-  },
-  introduction: {
-    type: String,
-  },
+  name: { type: String, required: true },
+  description: { type: String },
+  user_id: { type: Schema.Types.ObjectId, required: true, ref: "User" },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
 
-const Series = mongoose.models.User || mongoose.model<SeriesType>("User", seriesSchema);
+const Series = mongoose.models.Series || mongoose.model<SeriesType>("Series", seriesSchema);
 
 export default Series;

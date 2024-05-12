@@ -49,7 +49,10 @@ const NavBar = () => {
   };
 
   const logoutHandler = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("email");
     logout();
   };
 

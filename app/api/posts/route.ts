@@ -29,7 +29,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     connect();
-    let { title, content, tags, thumbnailUrl } = await req.json();
+    let { title, content, tags, thumbnailUrl, series_id } = await req.json();
     const headersList = headers();
     const authorization = headersList.get("authorization");
     if (!authorization) {
@@ -42,11 +42,13 @@ export async function POST(req: Request) {
       if (result) {
         const user = await User.findOne({ email: result.email }, "_id");
         if (title === "?") title = "tckkct";
+
         const post = await Post.create({
           title,
           content,
           tags,
           author: user._id,
+          series_id: series_id,
           thumbnailUrl,
         });
         return Response.json({ success: true, data: post });

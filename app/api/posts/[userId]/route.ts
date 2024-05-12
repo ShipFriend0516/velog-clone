@@ -33,10 +33,9 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const { title, userId } = await req.json();
   let undashedTitle = title.split("-").join(" ");
-  const post = await Post.findOne({ title: decodeURIComponent(undashedTitle) }).populate(
-    "author",
-    "username"
-  );
+  const post = await Post.findOne({ title: decodeURIComponent(undashedTitle) })
+    .populate("author", "username")
+    .populate("series_id", "name");
   const post_id = post._id;
 
   if (post) {

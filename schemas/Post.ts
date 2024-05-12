@@ -6,6 +6,7 @@ export interface PostType extends Document {
   author: mongoose.Types.ObjectId;
   tags: string[];
   likes: number;
+  series_id: mongoose.Types.ObjectId;
   comments?: string[];
   thumbnailUrl?: string;
   createdAt: Date;
@@ -22,6 +23,7 @@ const postSchema: Schema = new Schema({
   },
   tags: [{ type: String }],
   likes: { type: Number, default: 0, required: true },
+  series_id: { type: Schema.Types.ObjectId, required: true },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   thumbnailUrl: { type: String },
   createdAt: { type: Date, default: Date.now },
