@@ -29,7 +29,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     connect();
-    let { title, content, tags, thumbnailUrl, series_id } = await req.json();
+    let { title, content, tags, thumbnailUrl, series } = await req.json();
     const headersList = headers();
     const authorization = headersList.get("authorization");
     if (!authorization) {
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
           content,
           tags,
           author: user._id,
-          series_id: series_id,
+          series: series,
           thumbnailUrl,
         });
         return Response.json({ success: true, data: post });

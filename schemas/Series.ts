@@ -4,7 +4,6 @@ export interface SeriesType extends Document {
   name: string;
   description: string;
   user_id: mongoose.Types.ObjectId;
-  post_id: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -18,5 +17,6 @@ const seriesSchema: Schema = new Schema({
 });
 
 const Series = mongoose.models.Series || mongoose.model<SeriesType>("Series", seriesSchema);
+// export const Series = mongoose.model<SeriesType>("Series", seriesSchema);
 
 export default Series;

@@ -6,6 +6,9 @@ export default interface PostType {
     username: string;
     email: string;
   };
+  series: {
+    name: string;
+  };
   likes: number;
   comments?: number;
   tags?: string[];

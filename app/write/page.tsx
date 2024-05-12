@@ -27,7 +27,7 @@ const WritePage = () => {
           content: content,
           thumbnailUrl: thumbnailUrl,
           tags: tags,
-          series_id: series,
+          series: series,
         },
         {
           headers: {

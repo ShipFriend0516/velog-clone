@@ -49,6 +49,7 @@ const PostPage = ({ params }: Params) => {
       setIsOwner(response.data.post.author._id === localStorage.getItem("userId"));
       setLikesCount(response.data.likesCount);
       setIsLiked(response.data.isLiked);
+      console.log(response.data);
     } catch (err) {
       // 에러처리
       if (axios.isAxiosError(err) && err.response!.status === 404) {
@@ -245,7 +246,7 @@ const PostPage = ({ params }: Params) => {
           })}
         </div>
         <div className="seriesWrapper">
-          <h2 className="text-2xl">시리즈 타이틀</h2>
+          <h2 className="text-2xl">{post.series.name || "시리즈 타이틀"}</h2>
           <div>목록 보기</div>
         </div>
         <article className="py-5">{post.content}</article>

@@ -1,9 +1,11 @@
 import connect from "@/schemas";
 import Like from "@/schemas/Like";
 import Post from "@/schemas/Post";
+import Series from "@/schemas/Series";
 import User from "@/schemas/User";
 import { headers } from "next/headers";
 import * as url from "url";
+import PostType from "@/types/PostType";
 const jwt = require("jsonwebtoken");
 
 // 하나의 유저의 모든 글을 조회
@@ -31,27 +33,34 @@ export async function GET(req: Request) {
 
 // POST /api/posts/[userId] - 글 1개 조회
 export async function POST(req: Request) {
-  const { title, userId } = await req.json();
-  let undashedTitle = title.split("-").join(" ");
-  const post = await Post.findOne({ title: decodeURIComponent(undashedTitle) })
-    .populate("author", "username")
-    .populate("series_id", "name");
-  const post_id = post._id;
+  try {
+    const { title, userId } = await req.json();
+    let undashedTitle = title.split("-").join(" ");
+    connect();
+    const post = await Post.findOne({ title: decodeURIComponent(undashedTitle) })
+      .populate("author", "username")
+      .populate("series", "name", Series)
+      .lean<PostType>();
 
-  if (post) {
-    const likesCount = await Like.countDocuments({ post_id: post_id });
-    if (userId) {
-      const isLiked = await Like.exists({ post_id: post_id, user_id: userId });
-      return Response.json({
-        success: "true",
-        post: post,
-        likesCount: likesCount,
-        isLiked: isLiked,
-      });
+    const post_id = post!._id;
+
+    if (post) {
+      const likesCount = await Like.countDocuments({ post_id: post_id });
+      if (userId) {
+        const isLiked = await Like.exists({ post_id: post_id, user_id: userId });
+        return Response.json({
+          post: post,
+          likesCount: likesCount,
+          isLiked: isLiked,
+        });
+      }
+      return Response.json({ post: post, likesCount: likesCount, isLiked: false });
+    } else {
+      return Response.json({}, { status: 404 });
     }
-    return Response.json({ success: "true", post: post, likesCount: likesCount, isLiked: false });
-  } else {
-    return Response.json({ success: "false" }, { status: 404 });
+  } catch (error) {
+    console.error(error);
+    return Response.json({}, { status: 400 });
   }
 }
 
