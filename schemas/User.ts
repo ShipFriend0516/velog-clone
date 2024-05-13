@@ -5,7 +5,7 @@ export interface UserType extends Document {
   snsId: string;
   email: string;
   password: string;
-  profileThumbnailUrl?: string;
+  profileThumbnailUrl: string;
   introduction?: string;
 }
 
@@ -27,6 +27,7 @@ const userSchema: Schema = new Schema({
   },
   profileThumbnailUrl: {
     type: String,
+    default: "",
   },
   introduction: {
     type: String,

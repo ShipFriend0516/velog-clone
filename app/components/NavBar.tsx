@@ -44,6 +44,7 @@ const NavBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { login, logout, isLoggedIn } = useStore((state) => state);
 
+  const [thumbnail, setThumbnail] = useState("");
   const loginModalHandler = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -53,6 +54,7 @@ const NavBar = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("email");
+    localStorage.removeItem("thumbnailUrl");
     logout();
   };
 
@@ -62,6 +64,17 @@ const NavBar = () => {
       login();
     }
   }, [isLoggedIn, login]);
+
+  useEffect(() => {
+    const thumbnailUrl = localStorage.getItem("thumbnailUrl");
+    if (thumbnailUrl) {
+      if (thumbnailUrl === "undefined") {
+        setThumbnail("");
+      } else {
+        setThumbnail(thumbnailUrl);
+      }
+    }
+  }, [isLoggedIn]);
 
   return (
     !isWritePage && (
@@ -124,9 +137,30 @@ const NavBar = () => {
                 className="relative inline-flex items-center gap-1.5"
               >
                 <div className="rounded-full w-10 h-10 overflow-hidden">
+                  {thumbnail ? (
+                    <Image
+                      className="object-cover"
+                      src={thumbnail}
+                      alt={"userProfile"}
+                      width={50}
+                      height={50}
+                    />
+                  ) : (
+                    <Image
+                      className="object-cover"
+                      src={exUserProfile}
+                      alt={"userProfile"}
+                      width={50}
+                      height={50}
+                    />
+                  )}
                   <Image
                     className="object-cover"
-                    src={exUserProfile}
+                    src={
+                      (localStorage.getItem("thumbnailUrl") as string)
+                        ? (localStorage.getItem("thumbnailUrl") as string)
+                        : exUserProfile
+                    }
                     alt={"userProfile"}
                     width={50}
                     height={50}

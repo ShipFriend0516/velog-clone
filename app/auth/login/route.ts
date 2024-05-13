@@ -21,6 +21,7 @@ export async function POST(req: Request) {
           id: user._id,
           username: user.username,
           email: user.email,
+          profileThumbnailUrl: user.profileThumbnailUrl,
         },
       });
     } else {
@@ -28,5 +29,6 @@ export async function POST(req: Request) {
     }
   } catch (err) {
     console.error(err);
+    return Response.json({}, { status: 400 });
   }
 }

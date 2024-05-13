@@ -28,6 +28,7 @@ const LoginModal = ({ setModalOpen }: LoginModalControl) => {
         localStorage.setItem("username", response.data.currentUser.username);
         localStorage.setItem("accessToken", response.data.currentUser.accessToken);
         localStorage.setItem("email", response.data.currentUser.email);
+        localStorage.setItem("thumbnailUrl", response.data.currentUser.profileThumbnailUrl);
         login();
         setModalOpen();
       }
