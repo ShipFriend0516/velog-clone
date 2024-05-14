@@ -25,8 +25,10 @@ mongoose.connection.on("error", (error) => {
 });
 
 mongoose.connection.on("disconnected", () => {
-  console.error("MongoDB Connection Disconnected! Retrying connection...");
-  connect();
+  console.error("MongoDB Connection Disconnected! Retrying connection after 5 seconds...");
+  setTimeout(() => {
+    connect();
+  }, 5000);
 });
 
 export default connect;
