@@ -552,6 +552,18 @@ textarea {
   }
 }
 
+/* 리스트 페이지 */
+.listTabs {
+  color: gray;
+}
+
+.listTabs > button.selected {
+  font-style: bold;
+
+  color: black;
+  border-bottom: 3px solid black;
+}
+
 /* 공통 요소 */
 
 .whiteBtn {

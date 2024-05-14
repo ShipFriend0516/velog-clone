@@ -5,6 +5,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 interface UserType {
   _id: string;
   snsId: string;
@@ -18,6 +20,7 @@ const SettingPage = () => {
   const router = useRouter();
   const [userdata, setUserdata] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
+  const [thumbnail, setThumbnail] = useState(localStorage.getItem("thumbnailUrl"));
 
   const getUserData = async () => {
     try {
@@ -49,7 +52,9 @@ const SettingPage = () => {
     <section className="flex flex-col gap-10 max-w-4xl mx-auto w-screen h-screen p-10">
       <div className="flex justify-stretch">
         <div className="border-r p-5 flex flex-col gap-5 justify-center items-stretch">
-          <div className="rounded-full bg-gray-300 w-32 h-32"></div>
+          <div className="rounded-full bg-gray-300 w-32 h-32 overflow-hidden">
+            <Image src={thumbnail as string} alt={"UserProfile"} width={200} height={200} />
+          </div>
           <button className="px-5 py-1 font-bold bg-emerald-500 hover:bg-emerald-400 text-white rounded-md">
             이미지 업로드
           </button>

@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PostType from "@/types/PostType";
 import LoadingSpinner from "@/app/components/LoadingSpinner";
+import Image from "next/image";
 
 type Params = {
   userId: string;
@@ -105,7 +106,14 @@ const UserPostPage = () => {
   return (
     <section className="blogWrapper">
       <div className="profileWrapper flex items-center gap-4">
-        <div className="rounded-full w-32 h-32 overflow-hidden bg-gray-300"></div>
+        <div className="rounded-full w-32 h-32 overflow-hidden bg-gray-300">
+          <Image
+            src={author?.profileThumbnailUrl as string}
+            alt="프로필"
+            width={200}
+            height={200}
+          />
+        </div>
         <div>
           <div className="text-2xl">
             {authorLoading ? <span className="animate-pulse">...</span> : author?.username}
