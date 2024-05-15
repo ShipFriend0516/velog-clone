@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import useStore from '../store';
 
 interface UserType {
   _id: string;
@@ -20,7 +21,22 @@ const SettingPage = () => {
   const router = useRouter();
   const [userdata, setUserdata] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
-  const [thumbnail, setThumbnail] = useState(localStorage.getItem("thumbnailUrl"));
+  const [thumbnail, setThumbnail] = useState('');
+  const { isLoggedIn } = useStore();
+
+  useEffect(()=> {
+    if(isLoggedIn) {
+      const preThumbnail = localStorage.getItem('thumbnailUrl')
+      if(preThumbnail) {
+        setThumbnail(preThumbnail)
+      } else {
+        setThumbnail('')
+      }
+    } else {
+      router.replace('/')
+    }
+  
+  },[isLoggedIn])
 
   const getUserData = async () => {
     try {
