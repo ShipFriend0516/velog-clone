@@ -11,6 +11,8 @@ import { FaGithub, FaHeart, FaRegHeart } from "react-icons/fa";
 import { MdShare } from "react-icons/md";
 import { CiMail } from "react-icons/ci";
 import Link from "next/link";
+import useStore from "@/app/store";
+import LoginModal from "@/app/components/LoginModal";
 
 type Params = {
   params: {
@@ -34,10 +36,15 @@ const PostPage = ({ params }: Params) => {
 
   // 유저 상태
   const [isOwner, setIsOwner] = useState(false);
+  const { isLoggedIn } = useStore();
 
   // 좋아요 상태
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
+
+  // 모달 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalOpen = () => setIsModalOpen(!isModalOpen);
 
   const getPost = async () => {
     try {
@@ -190,13 +197,19 @@ const PostPage = ({ params }: Params) => {
   const postLike = async () => {
     try {
       if (post) {
-        const response = await axios.post("/api/posts/like", {
-          post_id: post._id,
-          user_id: localStorage.getItem("userId"),
-        });
+        if (isLoggedIn) {
+          const response = await axios.post("/api/posts/like", {
+            post_id: post._id,
+            user_id: localStorage.getItem("userId"),
+          });
 
-        setIsLiked(response.data.isLike);
-        setLikesCount(response.data.likesCount);
+          setIsLiked(response.data.isLike);
+          setLikesCount(response.data.likesCount);
+        } else {
+          // 로그인 안했을 때
+          console.error('로그인이 필요합니다.')
+          setIsModalOpen(true);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -292,6 +305,7 @@ const PostPage = ({ params }: Params) => {
             <h3>관심 있을 만한 포스트</h3>
           </div>
         </div>
+        {isModalOpen && <LoginModal setModalOpen={modalOpen} />}
       </section>
     ) : (
       <NotFound />
